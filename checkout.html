@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إتمام الطلب - متجر حلاوة</title>
+    <link rel="icon" type="image/png" href="file:///C:/Users/Genius/.gemini/antigravity/brain/445ff4bc-2a15-4230-9ce5-f836a6dc6253/media__1775261659258.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header id="home">
+        <div class="container header-top">
+            <div class="header-actions">
+                <!-- 🌍 اللغة -->
+                <div class="lang-dropdown">
+                    <button id="langToggle" class="lang-btn" aria-label="Toggle Language" title="اللغة / Language">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <ul class="lang-menu" id="langMenu">
+                        <li data-lang="ar">العربية</li>
+                        <li data-lang="en">English</li>
+                    </ul>
+                </div>
+
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+
+            <!-- 🔎 البحث -->
+            <div class="header-search">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." data-i18n-placeholder="search">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="header-logo">
+                <a href="index.html">
+                    <img src="file:///C:/Users/Genius/.gemini/antigravity/brain/445ff4bc-2a15-4230-9ce5-f836a6dc6253/media__1775261659258.png" alt="Logo" class="logo-img">
+                </a>
+            </div>
+        </div>
+
+        <div class="container header-bottom">
+            <div class="auth-links">
+                <a href="index.html#login"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login">تسجيل الدخول</span></a>
+                <a href="index.html#signup"><i class="fas fa-user-plus"></i> <span data-i18n="signup">إنشاء حساب</span></a>
+            </div>
+            <nav>
+                <ul>
+                    <li class="categories-btn">
+                        <i class="fas fa-bars"></i>
+                        <span data-i18n="categories">تصفح الفئات</span>
+                        <ul class="categories-dropdown">
+                            <li class="filter-option active" data-filter="all" data-i18n="filterAll">الكل</li>
+                            <li class="filter-option" data-filter="stick" data-i18n="filterStick">استيك</li>
+                            <li class="filter-option" data-filter="cone" data-i18n="filterCone">كونو وبسكويتة</li>
+                            <li class="filter-option" data-filter="cup" data-i18n="filterCup">عائلي وكب</li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#home" data-i18n="home">الرئيسية</a></li>
+                    <li class="flavors-btn">
+                        <span data-i18n="products">النكهات</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-right: 5px;"></i>
+                        <ul class="flavors-dropdown">
+                            <li class="filter-option" data-filter="chocolate" data-i18n="filterChocolate">شيكولاته</li>
+                            <li class="filter-option" data-filter="milk" data-i18n="filterMilk">حليب</li>
+                            <li class="filter-option" data-filter="pistachio" data-i18n="filterPistachio">بستاشيو</li>
+                            <li class="filter-option" data-filter="mango" data-i18n="filterMango">مانجو</li>
+                            <li class="filter-option" data-filter="strawberry" data-i18n="filterStrawberry">فراولة</li>
+                        </ul>
+                    </li>
+                    <li><a href="index.html#contact" data-i18n="contact">التواصل</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="checkout-section" class="checkout-section">
+        <div class="container">
+            <h2 data-i18n="checkoutTitle" class="checkout-title">إتمام الطلب</h2>
+            <div class="checkout-grid">
+
+                <!-- اليمين: معلومات التوصيل والدفع -->
+                <div class="checkout-form-area">
+                    <h3 data-i18n="shippingAddress">عنوان التوصيل</h3>
+                    <form id="checkoutForm" class="checkout-form">
+                        <div class="form-group">
+                            <label data-i18n="emailLabel">البريد الإلكتروني</label>
+                            <input type="email" id="email" required placeholder="أدخل بريدك الإلكتروني"
+                                data-i18n-placeholder="emailPlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="nameLabel">الاسم</label>
+                            <input type="text" id="fullName" required placeholder="أدخل اسمك"
+                                data-i18n-placeholder="namePlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="govLabel">المحافظة</label>
+                            <input type="text" id="governorate" required placeholder="أدخل اسم محافظتك"
+                                data-i18n-placeholder="govPlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="addressLabel">العنوان</label>
+                            <input type="text" id="address" required placeholder="أدخل عنوانك"
+                                data-i18n-placeholder="addressPlaceholder">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="phoneLabel">الهاتف</label>
+                            <input type="text" id="phone" required placeholder="أدخل رقم هاتفك"
+                                data-i18n-placeholder="phonePlaceholder">
+                        </div>
+
+                        <h3 data-i18n="paymentMethod" style="margin-top: 30px; margin-bottom: 15px;">طريقة الدفع</h3>
+                        <div class="payment-options">
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="cod" checked>
+                                <span class="payment-text" data-i18n="payCod">الدفع عند الاستلام</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="vodafone">
+                                <span class="payment-text" data-i18n="payVodafone">فودافون كاش</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="instapay">
+                                <span class="payment-text">Instapay</span>
+                            </label>
+                        </div>
+
+                        <!-- Mobile Wallet Details (Hidden by default) -->
+                        <div id="mobileWalletDetails"
+                            style="display: none; margin-top: 20px; padding: 15px; background: #fdfdfd; border: 1px solid #1ba97f; border-radius: 8px;">
+                            <p style="margin: 0 0 10px 0; color: #444; font-size: 0.95rem; line-height: 1.5;">
+                                <span data-i18n="transferInstruction1">برجاء تحويل إجمالي المبلغ إلى رقم فودافون كاش
+                                    التالي:</span><br>
+                                <strong
+                                    style="font-size: 1.2rem; color: #e60000; letter-spacing: 1px;">01008733913</strong><br>
+                                <span data-i18n="transferInstruction2">بعد إتمام التحويل، برجاء إدخال آخر 6 أرقام من رقم
+                                    العملية أدناه:</span>
+                            </p>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label data-i18n="transactionNumberLabel">رقم العملية (آخر 6 أرقام)</label>
+                                <input type="text" id="transactionNumber" placeholder="مثال: 123456" maxlength="6"
+                                    inputmode="numeric" pattern="[0-9]{6}" title="يجب إدخال 6 أرقام">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- اليسار: ملخص الطلب -->
+                <div class="checkout-summary-area">
+                    <h3 data-i18n="orderSummary">ملخص الطلب</h3>
+                    <div id="checkoutItemsList" class="checkout-items-list">
+                        <!-- تضاف المنتجات هنا عن طريق الجافاسكريبت -->
+                    </div>
+
+                    <div class="checkout-totals">
+                        <div class="total-line">
+                            <span data-i18n="subtotal">المجموع الفرعي</span>
+                            <span><span id="checkoutSubtotal">0</span> <span data-i18n="currency">EGP</span></span>
+                        </div>
+                        <div class="total-line">
+                            <span data-i18n="shipping">الشحن</span>
+                            <span><span id="checkoutShipping">20.00</span> <span data-i18n="currency">EGP</span></span>
+                        </div>
+                        <hr class="summary-divider">
+                        <div class="total-line grand-total">
+                            <span data-i18n="finalTotal">الإجمالي</span>
+                            <span><span id="checkoutFinalTotal">0</span> <span data-i18n="currency">EGP</span></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" form="checkoutForm" class="btn place-order-btn" data-i18n="placeOrder">إتمام
+                        الطلب</button>
+                    <a href="index.html" class="btn back-btn" data-i18n="backToHome"
+                        style="display: block; text-align: center; text-decoration: none; box-sizing: border-box;">الرجوع
+                        للمتجر</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-button">&times;</span>
+            <h3 data-i18n="cart">عربة التسوق</h3>
+            <div class="cart-items">
+            </div>
+            <div class="cart-summary">
+                <p>
+                    <span data-i18n="total"> الإجمالي:</span>
+                    <span class="cart-total">0</span>
+                    <span data-i18n="currency">جنية</span>
+                </p>
+                <div class="cart-actions">
+                    <button class="btn checkout-btn" data-i18n="checkout">دفع</button>
+                    <button class="btn continue-shopping-btn" data-i18n="continueShopping">تسوق المزيد</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <section id="success-modal" class="success-modal">
+        <div class="success-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 data-i18n="orderSuccessTitle">تم استلام طلبك بنجاح!</h2>
+            <p data-i18n="orderSuccessMsg">شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه.</p>
+            <div class="success-actions">
+                <button class="btn back-to-home-btn" data-i18n="backToHome">الرجوع للمتجر</button>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div class="footer-links">
+                <h4 data-i18n="footerServices">خدماتنا</h4>
+                <ul>
+                    <li><a href="index.html#contact" data-i18n="footerSupport">مركز الدعم</a></li>
+                    <li><a href="#" data-i18n="footerTerms">الشروط والأحكام</a></li>
+                    <li><a href="#" data-i18n="footerPrivacy">سياسة الخصوصية</a></li>
+                    <li><a href="#" data-i18n="footerHelp">مساعدة</a></li>
+                    <li><a href="#" data-i18n="footerFAQ">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
+                <ul>
+                    <li><a href="index.html#signup" data-i18n="footerAccount">حسابك</a></li>
+                    <li><a href="#" data-i18n="footerReturn">الإرجاع والاستبدال</a></li>
+                    <li><a href="#" data-i18n="footerShipping">الشحن والتوصيل</a></li>
+                    <li><a href="#" data-i18n="footerDeliveryTime">وقت التوصيل المقدر</a></li>
+                    <li><a href="#" data-i18n="footerPurchaseHistory">سجل الشراء</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
+                <ul>
+                    <li><a href="index.html#products" data-i18n="footerIceCream">ايس كريم</a></li>
+                    <li><a href="index.html#products" data-i18n="footerCone">كونو</a></li>
+                    <li><a href="index.html#products" data-i18n="footerStick">استيك</a></li>
+                    <li><a href="index.html#products" data-i18n="footerBox">علبة</a></li>
+                    <li><a href="index.html#products" data-i18n="footerSandwich">سندوتش</a></li>
+                </ul>
+            </div>
+            <div class="footer-about">
+                <p data-i18n="footerAboutText">أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض الخاصة. زورونا اليوم</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/201014630154" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/share/1CGqWE4mqJ/" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/amr_icecream.eg?igsh=MXA1b3c3d2gzdGg4ZA==" target="_blank" rel="noopener noreferrer" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <div class="payment-methods">
+                    <img src="img/payment_method.png" alt="طرق الدفع" style="height: 25px;">
+                </div>
+                <p data-i18n="footerRights">&copy; Rageh Store. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="script.js"></script>
+</body>
+
+</html>

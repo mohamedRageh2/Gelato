@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelato</title>
+    <link rel="icon" type="image/png" href="file:///C:/Users/Genius/.gemini/antigravity/brain/445ff4bc-2a15-4230-9ce5-f836a6dc6253/media__1775261659258.png">
+    <link rel="intro-slider" href="index0.html">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+
+    <!-- ====== End Slider ====== -->
+    <header id="home">
+        <div class="container header-top">
+            <div class="header-actions">
+                <!-- 🌍 اللغة -->
+                <div class="lang-dropdown">
+                    <button id="langToggle" class="lang-btn" aria-label="Toggle Language" title="اللغة / Language">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <ul class="lang-menu" id="langMenu">
+                        <li data-lang="ar">العربية</li>
+                        <li data-lang="en">English</li>
+                    </ul>
+                </div>
+
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count">0</span>
+                </div>
+            </div>
+
+            <!-- 🔎 البحث -->
+            <div class="header-search">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="ابحث عن منتج..." data-i18n-placeholder="search">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+
+            <div class="header-logo">
+                <img src="file:///C:/Users/Genius/.gemini/antigravity/brain/445ff4bc-2a15-4230-9ce5-f836a6dc6253/media__1775261659258.png"
+                    alt="Logo" class="logo-img">
+            </div>
+        </div>
+
+        <div class="container header-bottom">
+            <div class="auth-links">
+                <a href="#login"><i class="fas fa-sign-in-alt"></i> <span data-i18n="login">تسجيل الدخول</span></a>
+                <a href="#signup"><i class="fas fa-user-plus"></i> <span data-i18n="signup">إنشاء حساب</span></a>
+            </div>
+            <nav>
+                <ul>
+                    <li class="categories-btn">
+                        <i class="fas fa-bars"></i>
+                        <span data-i18n="categories">تصفح الفئات</span>
+                        <ul class="categories-dropdown">
+                            <li class="filter-option active" data-filter="all" data-i18n="filterAll">الكل</li>
+                            <li class="filter-option" data-filter="stick" data-i18n="filterStick">استيك</li>
+                            <li class="filter-option" data-filter="cone" data-i18n="filterCone">كونو وبسكويتة</li>
+                            <li class="filter-option" data-filter="cup" data-i18n="filterCup">عائلي وكب</li>
+                        </ul>
+                    </li>
+                    <li><a href="#home" data-i18n="home">الرئيسية</a></li>
+                    <li class="flavors-btn">
+                        <span data-i18n="products">النكهات</span>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-right: 5px;"></i>
+                        <ul class="flavors-dropdown">
+                            <li class="filter-option" data-filter="chocolate" data-i18n="filterChocolate">شيكولاته</li>
+                            <li class="filter-option" data-filter="milk" data-i18n="filterMilk">حليب</li>
+                            <li class="filter-option" data-filter="pistachio" data-i18n="filterPistachio">بستاشيو</li>
+                            <li class="filter-option" data-filter="mango" data-i18n="filterMango">مانجو</li>
+                            <li class="filter-option" data-filter="strawberry" data-i18n="filterStrawberry">فراولة</li>
+                        </ul>
+                    </li>
+                    <li><a href="#contact" data-i18n="contact">التواصل</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- New Hero Section -->
+    <section class="new-hero-section">
+        <div class="container new-hero-container">
+            <!-- الصورة الثابتة في اليمين (آيس كريم بسكويت) -->
+            <div class="hero-right-img">
+                <img src="img/product-1.jpeg" alt="Ice Cream Cone">
+            </div>
+            <!-- صور متحركة في اليسار -->
+            <div class="hero-left-slider">
+                <div class="hero-slides">
+                    <img src="img/product-3.jpeg" alt="Slide 1"
+                        class="hero-slide active">
+                    <img src="img/product-5.jpeg" alt="Slide 2"
+                        class="hero-slide">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products-section">
+        <div class="container">
+            <div class="product-grid">
+            </div>
+        </div>
+    </section>
+
+    <section id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span class="close-button">&times;</span>
+            <h3 data-i18n="cart">عربة التسوق</h3>
+            <div class="cart-items">
+            </div>
+            <div class="cart-summary">
+                <p>
+                    <span data-i18n="total"> الإجمالي:</span>
+                    <span class="cart-total">0</span>
+                    <span data-i18n="currency">جنية</span>
+                </p>
+                <div class="cart-actions">
+                    <button class="btn checkout-btn" data-i18n="checkout">دفع</button>
+                    <button class="btn continue-shopping-btn" data-i18n="continueShopping">تسوق المزيد</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container footer-grid">
+            <div class="footer-links">
+                <h4 data-i18n="footerServices">خدماتنا</h4>
+                <ul>
+                    <li><a href="#contact" data-i18n="footerSupport">مركز الدعم</a></li>
+                    <li><a href="#" data-i18n="footerTerms">الشروط والأحكام</a></li>
+                    <li><a href="#" data-i18n="footerPrivacy">سياسة الخصوصية</a></li>
+                    <li><a href="#" data-i18n="footerHelp">مساعدة</a></li>
+                    <li><a href="#" data-i18n="footerFAQ">الأسئلة الشائعة</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
+                <ul>
+                    <li><a href="#signup" data-i18n="footerAccount">حسابك</a></li>
+                    <li><a href="#" data-i18n="footerReturn">الإرجاع والاستبدال</a></li>
+                    <li><a href="#" data-i18n="footerShipping">الشحن والتوصيل</a></li>
+                    <li><a href="#" data-i18n="footerDeliveryTime">وقت التوصيل المقدر</a></li>
+                    <li><a href="#" data-i18n="footerPurchaseHistory">سجل الشراء</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
+                <ul>
+                    <li><a href="#products" data-i18n="footerIceCream">ايس كريم</a></li>
+                    <li><a href="#products" data-i18n="footerCone">كونو</a></li>
+                    <li><a href="#products" data-i18n="footerStick">استيك</a></li>
+                    <li><a href="#products" data-i18n="footerBox">علبة</a></li>
+                    <li><a href="#products" data-i18n="footerSandwich">سندوتش</a></li>
+                </ul>
+            </div>
+            <div class="footer-about">
+                <p data-i18n="footerAboutText">أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض
+                    الخاصة. زورونا اليوم</p>
+                <div class="footer-social">
+                    <a href="https://wa.me/201014630154" target="_blank" rel="noopener noreferrer"
+                        class="social-icon"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.facebook.com/share/1CGqWE4mqJ/" target="_blank" rel="noopener noreferrer"
+                        class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/amr_icecream.eg?igsh=MXA1b3c3d2gzdGg4ZA==" target="_blank"
+                        rel="noopener noreferrer" class="social-icon"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container footer-bottom-container">
+                <div class="payment-methods">
+                    <img src="img/payment_method.png" alt="طرق الدفع" style="height: 25px;">
+                </div>
+                <p data-i18n="footerRights">&copy; Rageh Store. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <script src="script.js"></script>
+    <!-- Code injected by live-server -->
+    <script>
+        // <![CDATA[  <-- For SVG support
+        if ('WebSocket' in window) {
+            (function () {
+                function refreshCSS() {
+                    var sheets = [].slice.call(document.getElementsByTagName("link"));
+                    var head = document.getElementsByTagName("head")[0];
+                    for (var i = 0; i < sheets.length; ++i) {
+                        var elem = sheets[i];
+                        var parent = elem.parentElement || head;
+                        parent.removeChild(elem);
+                        var rel = elem.rel;
+                        if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                            var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                            elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                        }
+                        parent.appendChild(elem);
+                    }
+                }
+                var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+                var address = protocol + window.location.host + window.location.pathname + '/ws';
+                var socket = new WebSocket(address);
+                socket.onmessage = function (msg) {
+                    if (msg.data == 'reload') window.location.reload();
+                    else if (msg.data == 'refreshcss') refreshCSS();
+                };
+                if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                    console.log('Live reload enabled.');
+                    sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+                }
+            })();
+        }
+        else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+        }
+        // ]]>
+    </script>
+
+
+</body>
+
+</html>
