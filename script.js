@@ -885,6 +885,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span>${item.quantity}</span>
                     <button type="button" class="chk-increase" data-id="${item.cartId || item.id}">+</button>
                 </div>
+                <button type="button" class="chk-remove-item" data-id="${item.cartId || item.id}" style="background: none; border: none; color: #ff4d4d; font-size: 1.2rem; cursor: pointer; padding: 5px; margin-right: 10px;" title="حذف المنتج">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
             `;
             checkoutItemsList.appendChild(div);
             subtotal += item.price * item.quantity;
@@ -903,6 +906,7 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutItemsList.addEventListener('click', (e) => {
             const increaseBtn = e.target.closest('.chk-increase');
             const decreaseBtn = e.target.closest('.chk-decrease');
+            const removeBtn = e.target.closest('.chk-remove-item');
 
             if (increaseBtn) {
                 updateQuantity(increaseBtn.dataset.id, 1);
@@ -910,6 +914,8 @@ document.addEventListener('DOMContentLoaded', () => {
             } else if (decreaseBtn) {
                 updateQuantity(decreaseBtn.dataset.id, -1);
                 renderCheckoutItems();
+            } else if (removeBtn) {
+                removeItemFromCart(removeBtn.dataset.id);
             }
         });
     }
