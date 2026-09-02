@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Mario Chocolate Ice Cream',
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
-            price: 185,
+            price: 110,
             image: "img/product-47.jpeg"
         },
         {
@@ -532,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "علبة",
             footerSandwich: "سندوتش",
             footerAboutText: "أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض الخاصة. زورونا اليوم",
-            footerRights: "&copy; Mohamed Rageh. جميع الحقوق محفوظة",
+            footerRights: "&copy; 2026 Gelato Happiness. جميع الحقوق محفوظة",
             orderSuccessTitle: "تم استلام طلبك بنجاح!",
             orderSuccessMsg: "شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه."
         },
@@ -611,7 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "Box",
             footerSandwich: "Sandwich",
             footerAboutText: "Best ice cream shop in town. We offer a wide variety of<br>flavors and special offers. Visit us today",
-            footerRights: "&copy; Mohamed Rageh. All rights reserved",
+            footerRights: "&copy; 2026 Gelato Happiness. All rights reserved",
             orderSuccessTitle: "Order Received Successfully!",
             orderSuccessMsg: "Thank you for shopping with us. We will contact you soon to confirm and ship your order."
         },
