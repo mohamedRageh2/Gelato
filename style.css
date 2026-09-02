@@ -27,7 +27,7 @@ html {
 
 html, body {
     max-width: 100%;
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 body {
@@ -375,6 +375,36 @@ header nav ul li a:hover {
     text-overflow: ellipsis;
 }
 
+.product-flavors {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.flavor-btn {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Cairo', sans-serif;
+}
+
+.flavor-btn:hover {
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.flavor-btn.active {
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
 .product-price {
     font-size: 1.6rem;
     color: var(--primary-color);
@@ -408,7 +438,7 @@ header nav ul li a:hover {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1001;
+    z-index: 3000;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.3s, opacity 0.3s ease;
@@ -663,22 +693,30 @@ footer {
     margin-bottom: 20px;
 }
 
+.footer-about {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
 .footer-social {
     display: flex;
-    gap: 10px;
-    margin-top: 15px;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 0;
+    width: 100%;
 }
 
 .social-icon {
-    width: 38px;
-    height: 38px;
+    width: 45px;
+    height: 45px;
     background-color: #8be1f8;
     color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    font-size: 1.1rem;
+    border-radius: 8px;
+    font-size: 1.4rem;
     transition: all 0.3s ease;
     text-decoration: none;
 }
@@ -1691,4 +1729,295 @@ footer {
 .product-card:hover img {
     transform: scale(1.05);
     /* Slight zoom hover effect */
+}
+
+/* ===== Dark Mode Toggle Button ===== */
+.dark-mode-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--secondary-color);
+    transition: transform 0.3s ease, color 0.3s ease;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dark-mode-toggle:hover {
+    transform: rotate(30deg) scale(1.1);
+    color: var(--primary-color);
+}
+
+/* ===== Dark Mode Styles ===== */
+body.dark-mode {
+    --bg-light: #0f1117;
+    --bg-dark: #f0f0f0;
+    --text-dark: #e8e8e8;
+    --text-light: #ffffff;
+    --border-color: #2a2d35;
+    --checkout-input-bg: #1e2028;
+    background-color: #0f1117;
+    color: #e8e8e8;
+}
+
+/* Header */
+body.dark-mode header {
+    background-color: rgba(15, 17, 23, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .header-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Search Box */
+body.dark-mode .search-box {
+    background-color: #1a1d26;
+    border-color: #2a2d35;
+    color: #e8e8e8;
+}
+
+body.dark-mode .search-box:focus-within {
+    background-color: #1e2028;
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .search-box input {
+    color: #e8e8e8;
+}
+
+body.dark-mode .search-box input::placeholder {
+    color: #888;
+}
+
+/* Nav Links */
+body.dark-mode header nav ul li a {
+    color: #ccc;
+}
+
+body.dark-mode header nav ul li a:hover {
+    color: var(--primary-color);
+}
+
+/* Products Section */
+body.dark-mode .products-section {
+    background-color: #0f1117;
+}
+
+/* Product Cards */
+body.dark-mode .product-card {
+    background-color: #181b22;
+    border-color: #2a2d35;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-mode .product-card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+body.dark-mode .product-card img {
+    background-color: #1a1d26;
+    border-bottom-color: #2a2d35;
+}
+
+body.dark-mode .product-info h3 {
+    color: #e8e8e8;
+}
+
+body.dark-mode .product-info p {
+    color: #aaa;
+}
+
+/* Cart Modal */
+body.dark-mode .cart-content {
+    background-color: #181b22;
+    box-shadow: -2px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode .close-button {
+    color: #aaa;
+}
+
+body.dark-mode .item-details h4 {
+    color: #e8e8e8;
+}
+
+body.dark-mode .item-quantity button {
+    background-color: #2a2d35;
+    color: #e8e8e8;
+    border-color: #3a3d45;
+}
+
+body.dark-mode .item-quantity button:hover {
+    background-color: #3a3d45;
+}
+
+body.dark-mode .cart-summary p {
+    color: #e8e8e8;
+}
+
+body.dark-mode .continue-shopping-btn {
+    color: #ccc;
+    border-color: #3a3d45;
+}
+
+body.dark-mode .continue-shopping-btn:hover {
+    background-color: #2a2d35;
+    color: var(--primary-color);
+}
+
+/* Footer (already dark) */
+
+/* Checkout Section */
+body.dark-mode .checkout-section {
+    background-color: #0f1117;
+}
+
+body.dark-mode .checkout-form-area,
+body.dark-mode .checkout-summary-area {
+    background: #181b22;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .checkout-form-area h3,
+body.dark-mode .checkout-summary-area h3 {
+    color: #e8e8e8;
+}
+
+body.dark-mode .form-group label {
+    color: #bbb;
+}
+
+body.dark-mode .form-group input {
+    background-color: #1e2028;
+    color: #e8e8e8;
+    border: 1px solid #2a2d35;
+}
+
+body.dark-mode .form-group input:focus {
+    background-color: #252830;
+    border-color: var(--primary-color);
+}
+
+body.dark-mode .payment-option {
+    background-color: #1e2028;
+    border-color: #2a2d35;
+    color: #ccc;
+}
+
+body.dark-mode .checkout-item-details h4 {
+    color: #e8e8e8;
+}
+
+body.dark-mode .checkout-item-details p {
+    color: #aaa;
+}
+
+body.dark-mode .checkout-totals .total-line {
+    color: #ccc;
+}
+
+body.dark-mode .grand-total {
+    color: #e8e8e8 !important;
+}
+
+body.dark-mode .summary-divider {
+    border-top-color: #2a2d35;
+}
+
+body.dark-mode .checkout-item {
+    border-bottom-color: #2a2d35;
+}
+
+body.dark-mode .chk-qty-controls button {
+    color: #ccc;
+}
+
+body.dark-mode .place-order-btn:disabled {
+    background-color: #1a3a4a;
+}
+
+/* Back button */
+body.dark-mode .back-btn {
+    color: #ccc;
+    border-color: #3a3d45;
+}
+
+body.dark-mode .back-btn:hover {
+    background-color: #2a2d35;
+}
+
+/* Success Modal */
+body.dark-mode .success-content {
+    background: #181b22;
+    color: #e8e8e8;
+}
+
+body.dark-mode .success-content p {
+    color: #bbb;
+}
+
+/* Lang Dropdown */
+body.dark-mode .lang-menu {
+    background-color: #181b22;
+    border-color: #2a2d35;
+}
+
+body.dark-mode .lang-menu li {
+    color: #ccc !important;
+}
+
+body.dark-mode .lang-menu li:hover {
+    background-color: #2a2d35;
+}
+
+/* Filter Options */
+body.dark-mode .filter-option {
+    color: #ccc;
+}
+
+body.dark-mode .filter-option:hover {
+    color: var(--primary-color);
+}
+
+/* About Section */
+body.dark-mode .about-section {
+    background-color: #13151d;
+}
+
+body.dark-mode .about-section p {
+    color: #bbb;
+}
+
+/* Features Bar */
+body.dark-mode .features-bar {
+    background-color: #181b22;
+    border-top: 1px solid #2a2d35;
+    border-bottom: 1px solid #2a2d35;
+}
+
+/* Left Image */
+body.dark-mode .left-image img {
+    background-color: #1a1d26;
+}
+
+/* Auth Links */
+body.dark-mode .auth-links a {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Checkout Summary border on mobile */
+body.dark-mode .checkout-summary-area {
+    border-color: #2a2d35;
+}
+
+/* Smooth transition for dark mode */
+body, header, .search-box, .product-card, .cart-content,
+.checkout-section, .checkout-form-area, .checkout-summary-area,
+.form-group input, .item-quantity button, .continue-shopping-btn,
+.back-btn, .success-content, .lang-menu, .features-bar {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }

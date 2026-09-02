@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gelato</title>
-    <link rel="icon" type="image/png" href="img/product-8.jpeg">
+    <link rel="icon" type="image/png" href="img/download.png">
     <link rel="intro-slider" href="index0.html">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -18,6 +18,11 @@
     <header id="home">
         <div class="container header-top">
             <div class="header-actions">
+                <!-- 🌙 الوضع الليلي -->
+                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode" title="الوضع الليلي / Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+
                 <!-- 🌍 اللغة -->
                 <div class="lang-dropdown">
                     <button id="langToggle" class="lang-btn" aria-label="Toggle Language" title="اللغة / Language">
@@ -44,7 +49,7 @@
             </div>
 
             <div class="header-logo">
-                <img src="img/product-8.jpeg"
+                <img src="img/download.png"
                     alt="Logo" class="logo-img">
             </div>
         </div>
@@ -132,39 +137,8 @@
 
     <footer id="contact">
         <div class="container footer-grid">
-            <div class="footer-links">
-                <h4 data-i18n="footerServices">خدماتنا</h4>
-                <ul>
-                    <li><a href="#contact" data-i18n="footerSupport">مركز الدعم</a></li>
-                    <li><a href="#" data-i18n="footerTerms">الشروط والأحكام</a></li>
-                    <li><a href="#" data-i18n="footerPrivacy">سياسة الخصوصية</a></li>
-                    <li><a href="#" data-i18n="footerHelp">مساعدة</a></li>
-                    <li><a href="#" data-i18n="footerFAQ">الأسئلة الشائعة</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
-                <ul>
-                    <li><a href="#signup" data-i18n="footerAccount">حسابك</a></li>
-                    <li><a href="#" data-i18n="footerReturn">الإرجاع والاستبدال</a></li>
-                    <li><a href="#" data-i18n="footerShipping">الشحن والتوصيل</a></li>
-                    <li><a href="#" data-i18n="footerDeliveryTime">وقت التوصيل المقدر</a></li>
-                    <li><a href="#" data-i18n="footerPurchaseHistory">سجل الشراء</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h4 data-i18n="footerQuickLinks">روابط سريعة</h4>
-                <ul>
-                    <li><a href="#products" data-i18n="footerIceCream">ايس كريم</a></li>
-                    <li><a href="#products" data-i18n="footerCone">كونو</a></li>
-                    <li><a href="#products" data-i18n="footerStick">استيك</a></li>
-                    <li><a href="#products" data-i18n="footerBox">علبة</a></li>
-                    <li><a href="#products" data-i18n="footerSandwich">سندوتش</a></li>
-                </ul>
-            </div>
+
             <div class="footer-about">
-                <p data-i18n="footerAboutText">أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض
-                    الخاصة. زورونا اليوم</p>
                 <div class="footer-social">
                     <a href="https://wa.me/201014630154" target="_blank" rel="noopener noreferrer"
                         class="social-icon"><i class="fab fa-whatsapp"></i></a>
@@ -180,7 +154,7 @@
                 <div class="payment-methods">
                     <img src="img/payment_method.png" alt="طرق الدفع" style="height: 25px;">
                 </div>
-                <p data-i18n="footerRights">&copy; Rageh Store. جميع الحقوق محفوظة</p>
+                <p data-i18n="footerRights">&copy; Mohamed Rageh . جميع الحقوق محفوظة</p>
             </div>
         </div>
     </footer>

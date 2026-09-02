@@ -7,13 +7,39 @@ document.addEventListener('DOMContentLoaded', () => {
     const cartItemsContainer = document.querySelector('.cart-items');
     const cartTotalSpan = document.querySelector('.cart-total');
 
+    // ===== Dark Mode =====
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const savedDarkMode = localStorage.getItem('darkMode');
+
+    // Apply saved preference on load
+    if (savedDarkMode === 'enabled') {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+            darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+    }
+
+    if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = darkModeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+    }
+
     // ===== Dropdown Toggle Logic =====
     function setupDropdown(btnSelector, dropdownSelector, otherBtnSelector) {
         const btn = document.querySelector(btnSelector);
         const otherBtn = document.querySelector(otherBtnSelector);
         if (!btn) return;
 
-        btn.addEventListener('click', function(e) {
+        btn.addEventListener('click', function (e) {
             e.stopPropagation();
             // If clicking on a filter option inside the dropdown, let it work but close dropdown
             if (e.target.classList.contains('filter-option')) {
@@ -31,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupDropdown('.flavors-btn', '.flavors-dropdown', '.categories-btn');
 
     // Close all dropdowns when clicking anywhere else on the page
-    document.addEventListener('click', function() {
+    document.addEventListener('click', function () {
         var cats = document.querySelector('.categories-btn');
         var flavs = document.querySelector('.flavors-btn');
         if (cats) cats.classList.remove('active');
@@ -52,26 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Super Dark Chocolate Flavor',
             description: 'استيك ايس كريم فاخر بنكهة الشوكليت مصنوع من أجودالمكونات.',
             description_en: 'Premium ice cream with a chocolate flavor, made from the finest ingredien.',
-            price: 105,
-            image: "img/product-9.jpeg"
-        },
-        {
-            id: 2,
-            name: 'استار بطعم الحليب',
-            name_en: 'Star milk flavor',
-            description: 'ايس كريم فاخر بنكهة الفانيليا شوكليت مصنوع من اجود المكونات كونو.',
-            description_en: 'Premium ice cream with a vanilla chocolate flavor, made from the finest ingredients.',
             price: 110,
-            image: "img/product-10.jpeg"
-        },
-        {
-            id: 3,
-            name: 'Vip حليب علي بستاشيو',
-            name_en: 'VIP milk on pistachio',
-            description: 'آيس كريم كريمي بنكهة المانجاو الشوكليت والفراولة مصنوع من اجود المكونات كب.',
-            description_en: 'Creamy ice cream with mango, chocolate, and strawberry flavor, made from the finest ingredients.',
-            price: 200,
-            image: "img/product-11.jpeg"
+            image: "img/product-9.jpeg"
         },
         {
             id: 5,
@@ -79,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Pistachio milk topped with pistachios',
             description: 'آيس كريم منعش بنكهة الفانيليا والشوكليت استيك.',
             description_en: 'Refreshing vanilla and chocolate flavored ice cream.',
-            price: 110,
+            price: 115,
             image: "img/product-13.jpeg"
         },
         {
@@ -88,98 +96,82 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Pizza cake covered in milk and topped with pistachios',
             description: 'بيتزا ايس كريم بنكهة البستاشيو و الفستق مصنوع من اجود المكونات  .',
             description_en: 'Pistachio and pistachio flavor ice cream pizza, made from the finest ingredients.',
-            price: 130,
+            price: 135,
             image: "img/product-14.jpeg"
         },
         {
             id: 7,
-            name: 'جولدن ايس كريم حليب',
-            name_en: 'Golden Ice Cream ',
-            description: 'ايس كريم بنكهة الشوكليت مصنوع من اجود المكونات كونو',
-            description_en: 'Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 110,
-            image: "img/product-15.jpeg"
+            name: 'جولدن ايس كريم',
+            name_en: 'Golden Ice Cream',
+            description: 'ايس كريم جولدن كونو بنكهات رائعة',
+            description_en: 'Golden cone ice cream in great flavors.',
+            price: 115,
+            image: "img/product-15.jpeg",
+            flavors: [
+                { id: 'milk', name_ar: 'حليب', name_en: 'Milk' },
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry' }
+            ]
         },
-        {
-            id: 9,
-            name: 'لافندر حليب علي فراوله او علي مانجا',
-            name_en: 'Lavender milk on strawberry or mango',
-            description: 'ايس كريم بنكهةالفانيليا والمانجا والاستروبري مصنوع من اجود المكونات كب',
-            description_en: 'Vanilla, mango, and strawberry flavored ice cream, made from the finest ingredients.',
-            price: 55,
-            image: "img/product-17.jpeg"
-        },
+
         {
             id: 11,
-            name: 'استيك لافلي بطعم التوت',
-            name_en: 'Lovely berry-flavored steak',
-            description: 'ايس كريم بنكهة الفانيليا والتوت البري المنعش مصنوع من اجود المكونات ',
-            description_en: 'Refreshing vanilla and berry flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-20.jpeg"
-        },
-        {
-            id: 12,
-            name: 'كندر ايس كريم شوكولاته',
-            name_en: 'Kandora chocolate ice cream',
-            description: 'ايس كريم بنكهة الكندر مصنوع من اجودالمكونات كونو',
-            description_en: 'Kinder flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-21.jpeg"
+            name: 'استيك لافلي',
+            name_en: 'Lovely Steak',
+            description: 'ايس كريم بنكهة الفانيليا والتوت البري أو الشوكولاتة المقرمشة',
+            description_en: 'Refreshing vanilla and berry or crunchy chocolate flavored ice cream.',
+            price: 110,
+            image: "img/product-20.jpeg",
+            flavors: [
+                { id: 'berry', name_ar: 'توت', name_en: 'Berry', image: 'img/product-20.jpeg' },
+                { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-45.jpeg' }
+            ]
         },
         {
             id: 13,
-            name: 'برجر بسكوته محشيه حليب مغطاه بالشوكولاته',
-            name_en: 'Milk-filled biscuit burger covered in chocolate',
-            description: 'ايس كريم بنكهة الشوكليت مصنوع من اجود المكونات ',
-            description_en: 'Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-22.jpeg"
+            name: 'برجر بسكوتة',
+            name_en: 'Biscuit Burger',
+            description: 'ايس كريم برجر بسكوتة محشية حليب بنكهات رائعة',
+            description_en: 'Milk-filled biscuit burger ice cream in great flavors.',
+            price: 110,
+            image: "img/product-22.jpeg",
+            flavors: [
+                { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-22.jpeg' },
+                { id: 'pist', name_ar: 'بستاشيو', name_en: 'Pistachio', image: 'img/product-25.jpeg' }
+            ]
         },
-        {
-            id: 14,
-            name: 'روكيت ايس كريم حليب وبيستاشيو',
-            name_en: 'Rocket Ice Cream Milk and Pistachio',
-            description: 'ايس كريم بنكهة البستاشيو مصنوع من اجود المكونات',
-            description_en: 'Pistachio flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-23.jpeg"
-        },
+
         {
             id: 15,
             name: 'وتش بسكوته محشيه حليب',
             name_en: 'Witch a milk-filled biscuit',
             description: 'ايس كريم بنكهة الفانيليا والاوريو مصنوع من اجود المكونات ',
             description_en: 'Vanilla and Oreo flavored ice cream, made from the finest ingredients.',
-            price: 110,
+            price: 115,
             image: "img/product-24.jpeg"
         },
-        {
-            id: 16,
-            name: 'برجر بسكوته محشيه حليب مغطاه بالبستاشيو',
-            name_en: 'burger Milk-filled biscuit topped with pistachios ',
-            description: 'ايس كريم بنكهة البستاشيو كندر مصنوع من اجود المكونات ',
-            description_en: 'Kinder Pistachio flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-25.jpeg"
-        },
+
         {
             id: 17,
             name: 'جوكر ايس كريم حليب مغطي بالبستاشيو',
             name_en: 'Joker milk ice cream topped with pistachios',
             description: 'ايس كريم بنكهةالبستاشيو مصنوع من اجود المكونات استيك',
             description_en: 'Pistachio flavored ice cream, made from the finest ingredients.',
-            price: 105,
+            price: 110,
             image: "img/product-26.jpeg"
         },
         {
             id: 18,
-            name: 'اتشيز شوكولاته',
-            name_en: 'Chocolate cheese',
-            description: 'ايس كريم بنكهةالشوكليت مصنوع من اجود المكونات استيك',
-            description_en: 'Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 160,
-            image: "img/product-27.jpeg"
+            name: 'تشيز (كيك)',
+            name_en: 'Cheese (Cake)',
+            description: 'ايس كريم تشيز بمزيج رائع من النكهات',
+            description_en: 'Cheese ice cream with a great blend of flavors.',
+            price: 165,
+            image: "img/product-27.jpeg",
+            flavors: [
+                { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-27.jpeg' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-52.jpeg' }
+            ]
         },
         {
             id: 19,
@@ -187,26 +179,18 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Seven Stars Chocolate Flavor',
             description: 'ايس كريم بنكهة الفانيليا شوكليت مصنوع من اجود المكونات كونو',
             description_en: 'Vanilla and Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 110,
+            price: 115,
             image: "img/product-28.jpeg"
         },
-        {
-            id: 20,
-            name: 'برستيج بطعم الشوكولاته',
-            name_en: 'Prestige with a chocolate flavor',
-            description: 'ايس كريم بنكهةالشوكليت مصنوع من اجود المكونات كب',
-            description_en: 'Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 105,
-            image: "img/product-29.jpeg"
-        },
+
         {
             id: 22,
             name: 'دبي بطعم البستاشيو',
             name_en: 'Dubai with a pistachio flavor',
             description: 'ايس كريم بنكهة البستاشيو مصنوع من اجود المكزنات كونو',
             description_en: 'Pistachio flavored ice cream, made from the finest ingredients.',
-            price: 155,
-            image: "img/product-1.jpeg"
+            price: 160,
+            image: "img/product-49.jpeg"
         },
         {
             id: 23,
@@ -214,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Crazy Milk on Chocolate',
             description: 'ايس كريم بنكهة الفانيليا شوكليت مصنوع من اجود المكزنات كب',
             description_en: 'Vanilla & Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 80,
+            price: 85,
             image: "img/product-32.jpeg"
         },
         {
@@ -223,52 +207,31 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Mixed caramel cones covered in milk and chocolate',
             description: 'ايس كريم بنكهةالشوكليت والكراميل مضنوع من اجود المكونات',
             description_en: 'Chocolate and Caramel flavored ice cream, made from the finest ingredients.',
-            price: 105,
+            price: 110,
             image: "img/product-33.jpeg"
         },
         {
             id: 25,
-            name: 'ماجيستيك مانجو ',
-            name_en: 'Majestic Mango ',
-            description: 'آيس كريم استيك بنكهة المانجو الطبيعية المنعشة.',
-            description_en: 'Refreshing natural mango flavor stick ice cream.',
-            price: 105,
-            image: "img/product-48.jpeg"
+            name: 'ماجيستيك',
+            name_en: 'Majestic',
+            description: 'آيس كريم استيك ماجيستيك متوفر بنكهات رائعة.',
+            description_en: 'Majestic stick ice cream available in great flavors.',
+            price: 110,
+            image: "img/product-48.jpeg",
+            flavors: [
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-48.jpeg' },
+                { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-46.jpeg' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-40.jpeg' }
+            ]
         },
-        {
-            id: 26,
-            name: 'روكيت حليب علي شوكولاته',
-            name_en: 'Rocket Milk Chocolate',
-            description: 'ساندوتش آيس كريم فاخر من جيلاتو السعادة.',
-            description_en: 'Premium ice cream sandwich from Gelato Happiness.',
-            price: 105,
-            image: "img/product-7.jpeg"
-        },
-        {
-            id: 28,
-            name: ' وندر شوكولاتة وفانيلياكونو',
-            name_en: 'Wonder Chocolate Vanilla',
-            description: 'كونو وندر بمزيج الشوكولاتة والفانيليا.',
-            description_en: 'Wonder cone with a blend of chocolate and vanilla.',
-            price: 105,
-            image: "img/product-34.jpeg"
-        },
-        {
-            id: 29,
-            name: 'بيج لافلي بطعم الشوكولاته',
-            name_en: 'Big Lovly Chocolate Flavor',
-            description: 'كب آيس كريم لافلي بقطع الشوكولاتة.',
-            description_en: 'Lovely ice cream cup with chocolate chips.',
-            price: 100,
-            image: "img/product-35.jpeg"
-        },
+
         {
             id: 30,
             name: 'سوبيا فراولة',
             name_en: 'Sobia Strawberry ',
             description: 'آيس كريم استيك بنكهة السوبيا والفراولة.',
             description_en: 'Sobia and strawberry flavor stick ice cream.',
-            price: 110,
+            price: 115,
             image: "img/product-36.jpeg"
         },
         {
@@ -277,44 +240,18 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Big Ice Chocolate Flavor',
             description: 'آيس كريم استيك شوكولاتة غني.',
             description_en: 'Rich chocolate stick ice cream.',
-            price: 110,
+            price: 115,
             image: "img/product-37.jpeg"
         },
-        {
-            id: 32,
-            name: 'اوسكار حليب علي شوكولاته',
-            name_en: 'Oscar Milk on Chocolate',
-            description: 'كونو أوسكار بنكهة الشوكولاتة الغنية.',
-            description_en: 'Oscar cone with rich chocolate flavor.',
-            price: 150,
-            image: "img/product-38.jpeg"
-        },
+
         {
             id: 33,
             name: 'موزه بطعم الموز',
             name_en: 'Banana-flavored',
             description: 'آيس كريم استيك منعش بطعم الموز.',
             description_en: 'Refreshing banana flavored stick ice cream.',
-            price: 110,
+            price: 115,
             image: "img/product-39.jpeg"
-        },
-        {
-            id: 35,
-            name: 'روز حليب علي فراوله او علي مانجا',
-            name_en: 'Roze milk on strawberry or mango',
-            description: 'كب روز بمزيج الفانيليا والمانجو.',
-            description_en: 'Roze cup with a blend of vanilla and mango.',
-            price: 105,
-            image: "img/product-41.jpeg"
-        },
-        {
-            id: 37,
-            name: 'لافلي حليب علي فراوله',
-            name_en: 'Lovly milk on strawberries',
-            description: 'تشكيلة كب لافلي بنكهات الفواكه المختلفة.',
-            description_en: 'Lovely cup assortment with various fruit flavors.',
-            price: 105,
-            image: "img/product-43.jpeg"
         },
         {
             id: 38,
@@ -322,35 +259,89 @@ document.addEventListener('DOMContentLoaded', () => {
             name_en: 'Jewel chocolate-covered milk',
             description: 'آيس كريم جويل استيك مغطى بالشوكولاتة.',
             description_en: 'Jewel stick ice cream coated in chocolate.',
-            price: 110,
+            price: 115,
             image: "img/product-44.jpeg"
         },
-        {
-            id: 39,
-            name: 'استيك لافلي بطعم الشوكولاتة',
-            name_en: 'Lovely Chocolate Crunchy Stick',
-            description: 'آيس كريم لافلي استيك بالشوكولاتة المقرمشة.',
-            description_en: 'Lovely stick ice cream with crunchy chocolate.',
-            price: 105,
-            image: "img/product-45.jpeg"
-        },
-        {
-            id: 40,
-            name: 'ماجستيك حليب مغطي بالشوكولاته',
-            name_en: 'Majestic Milk Chocolate Covered',
-            description: 'آيس كريم استيك ماجيستيك بالكراميل والمكسرات.',
-            description_en: 'Majestic ice cream with caramel and nuts.',
-            price: 105,
-            image: "img/product-46.jpeg"
-        },
+
+
         {
             id: 41,
             name: 'ماريو ايس كريم شوكولاته',
             name_en: 'Mario Chocolate Ice Cream',
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
-            price: 125,
+            price: 185,
             image: "img/product-47.jpeg"
+        },
+        {
+            id: 42,
+            name: 'ماجستيك ذهبي',
+            name_en: 'Majestic Gold',
+            description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
+            description_en: 'Mario cookies & cream flavored cone.',
+            price: 220,
+            image: "img/product-50.jpeg"
+        },
+
+
+        {
+            id: 44,
+            name: 'Vip حليب علي بستاشيو',
+            name_en: 'VIP milk on pistachio',
+            description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
+            description_en: 'Mario cookies & cream flavored cone.',
+            price: 220,
+            image: "img/product-53.jpeg"
+        },
+        {
+            id: 45,
+            name: 'لافلي حليب',
+            name_en: 'Lovely Milk',
+            description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
+            description_en: 'Mario cookies & cream flavored cone.',
+            price: 165,
+            image: "img/product-54.jpeg",
+            flavors: [
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-54.jpeg' },
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-55.jpeg' }
+            ]
+        },
+        {
+            id: 47,
+            name: 'استيك بطعم البطيخ',
+            name_en: 'watermelon flavor stick ice cream',
+            description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
+            description_en: 'Mario cookies & cream flavored cone.',
+            price: 115,
+            image: "img/product-56.jpeg"
+        },
+        {
+            id: 50,
+            name: 'روز',
+            name_en: 'Roze',
+            description: 'روز.',
+            description_en: 'Roze.',
+            price: 110,
+            image: "img/product-41.jpeg",
+            flavors: [
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry' }
+            ]
+        },
+        {
+            id: 48,
+            name: 'جالون 3 لتر عائلي',
+            name_en: '3 liter family gallon',
+            description: 'جالون 3 لتر عائلي بنكهات متعددة',
+            description_en: '3 liter family gallon in multiple flavors.',
+            price: 105,
+            image: "img/product-57.jpeg",
+            flavors: [
+                { id: 'milk', name_ar: 'حليب', name_en: 'Milk', price: 105 },
+                { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', price: 115 },
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', price: 100 },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', price: 100 }
+            ]
         },
 
     ];
@@ -371,15 +362,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Category Filter
             let matchCategory = false;
+            let hasFlavor = (fId) => product.flavors && product.flavors.some(f => f.id === fId);
+
             if (currentCategoryFilter === 'all') matchCategory = true;
             else if (currentCategoryFilter === 'stick' && (nameAr.includes('استيك') || descAr.includes('استيك') || nameEn.includes('stick') || descEn.includes('stick'))) matchCategory = true;
             else if (currentCategoryFilter === 'cone' && (nameAr.includes('كونو') || descAr.includes('كونو') || nameAr.includes('ميكسيكونو') || nameAr.includes('بسكويت') || nameEn.includes('cone'))) matchCategory = true;
             else if (currentCategoryFilter === 'cup' && (nameAr.includes('كب') || nameAr.includes('جالون') || nameAr.includes('كوب') || descAr.includes('كب') || nameEn.includes('cup') || nameEn.includes('gallon'))) matchCategory = true;
-            else if (currentCategoryFilter === 'chocolate' && (nameAr.includes('شيكولاته') || nameAr.includes('شوكولاته') || nameEn.includes('chocolate'))) matchCategory = true;
-            else if (currentCategoryFilter === 'milk' && (nameAr.includes('حليب') || nameEn.includes('milk'))) matchCategory = true;
-            else if (currentCategoryFilter === 'pistachio' && (nameAr.includes('بستاشيو') || nameAr.includes('بيستاشيو') || nameAr.includes('فستق') || nameEn.includes('pistachio'))) matchCategory = true;
-            else if (currentCategoryFilter === 'mango' && (nameAr.includes('مانجو') || nameEn.includes('mango'))) matchCategory = true;
-            else if (currentCategoryFilter === 'strawberry' && (nameAr.includes('فراولة') || nameAr.includes('فراوله') || nameEn.includes('strawberry'))) matchCategory = true;
+            else if (currentCategoryFilter === 'chocolate' && (nameAr.includes('شيكولاته') || nameAr.includes('شوكولاته') || nameEn.includes('chocolate') || hasFlavor('choc'))) matchCategory = true;
+            else if (currentCategoryFilter === 'milk' && (nameAr.includes('حليب') || nameEn.includes('milk') || hasFlavor('milk'))) matchCategory = true;
+            else if (currentCategoryFilter === 'pistachio' && (nameAr.includes('بستاشيو') || nameAr.includes('بيستاشيو') || nameAr.includes('فستق') || nameEn.includes('pistachio') || hasFlavor('pist'))) matchCategory = true;
+            else if (currentCategoryFilter === 'mango' && (nameAr.includes('مانجو') || nameEn.includes('mango') || hasFlavor('mango'))) matchCategory = true;
+            else if (currentCategoryFilter === 'strawberry' && (nameAr.includes('فراولة') || nameAr.includes('فراوله') || nameEn.includes('strawberry') || hasFlavor('straw'))) matchCategory = true;
 
             // Search Filter
             let matchSearch = true;
@@ -395,14 +388,64 @@ document.addEventListener('DOMContentLoaded', () => {
             const description = currentLang === "ar" ? product.description : (product.description_en || product.description);
             const currency = translations[currentLang]?.currency || 'جنية';
 
+            let flavorsHtml = '';
+            let displayPrice = product.price;
+            const flavorColors = {
+                'choc': '#6B3A2A',
+                'straw': '#E84057',
+                'mango': '#F5A623',
+                'milk': '#D4A76A',
+                'berry': '#8B3A8B',
+                'pist': '#6B9B37',
+                'caramel': '#C68E3C',
+                'vanilla': '#F3E5AB'
+            };
+            let displayImage = product.image;
+            if (product.flavors && product.flavors.length > 0) {
+                // Determine which flavor should be active based on filter
+                let targetFlavorId = null;
+                if (currentCategoryFilter === 'chocolate') targetFlavorId = 'choc';
+                else if (currentCategoryFilter === 'milk') targetFlavorId = 'milk';
+                else if (currentCategoryFilter === 'pistachio') targetFlavorId = 'pist';
+                else if (currentCategoryFilter === 'mango') targetFlavorId = 'mango';
+                else if (currentCategoryFilter === 'strawberry') targetFlavorId = 'straw';
+
+                let activeFlavorIndex = 0;
+                if (targetFlavorId) {
+                    const idx = product.flavors.findIndex(f => f.id === targetFlavorId);
+                    if (idx > -1) activeFlavorIndex = idx;
+                }
+
+                if (product.flavors[activeFlavorIndex].price) {
+                    displayPrice = product.flavors[activeFlavorIndex].price;
+                }
+                if (product.flavors[activeFlavorIndex].image) {
+                    displayImage = product.flavors[activeFlavorIndex].image;
+                }
+
+                flavorsHtml = '<div class="product-flavors">';
+                product.flavors.forEach((flavor, index) => {
+                    const flavorName = currentLang === 'ar' ? flavor.name_ar : flavor.name_en;
+                    const activeClass = index === activeFlavorIndex ? 'active' : '';
+                    const flavorPrice = flavor.price || product.price;
+                    const fColor = flavorColors[flavor.id] || 'var(--primary-color)';
+                    const btnStyle = index === activeFlavorIndex
+                        ? `background-color: ${fColor}; color: #fff; border-color: ${fColor};`
+                        : `color: ${fColor}; border-color: ${fColor}; background-color: transparent;`;
+                    flavorsHtml += `<button class="flavor-btn ${activeClass}" data-flavor-id="${flavor.id}" data-flavor-name-ar="${flavor.name_ar}" data-flavor-name-en="${flavor.name_en}" data-flavor-price="${flavorPrice}" data-flavor-color="${fColor}" data-flavor-image="${flavor.image || ''}" style="${btnStyle}" onclick="selectFlavor(this)">${flavorName}</button>`;
+                });
+                flavorsHtml += '</div>';
+            }
+
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
             productCard.innerHTML = `
-                <img src="${product.image}" alt="${name}">
+                <img src="${displayImage}" alt="${name}">
                 <div class="product-info">
                     <h3>${name}</h3>
                     <p style="display:none;">${description}</p>
-                    <div class="product-price">${product.price.toFixed(3)} ${currency}</div>
+                    <div class="product-price">${displayPrice.toFixed(3)} ${currency}</div>
+                    ${flavorsHtml}
                     <button class="btn add-to-cart-btn" data-id="${product.id}">
                         ${currentLang === "ar" ? "أضف إلى السلة" : "Add to Cart"}
                     </button>
@@ -489,7 +532,7 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "علبة",
             footerSandwich: "سندوتش",
             footerAboutText: "أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض الخاصة. زورونا اليوم",
-            footerRights: "&copy; Rageh Store. جميع الحقوق محفوظة",
+            footerRights: "&copy; Mohamed Rageh. جميع الحقوق محفوظة",
             orderSuccessTitle: "تم استلام طلبك بنجاح!",
             orderSuccessMsg: "شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه."
         },
@@ -568,7 +611,7 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "Box",
             footerSandwich: "Sandwich",
             footerAboutText: "Best ice cream shop in town. We offer a wide variety of<br>flavors and special offers. Visit us today",
-            footerRights: "&copy; Rageh Store. All rights reserved",
+            footerRights: "&copy; Mohamed Rageh. All rights reserved",
             orderSuccessTitle: "Order Received Successfully!",
             orderSuccessMsg: "Thank you for shopping with us. We will contact you soon to confirm and ship your order."
         },
@@ -617,7 +660,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 cartItemsContainer.innerHTML = `<p style="text-align: center; color: #777;">${emptyText}</p>`;
             } else {
                 cart.forEach(item => {
-                    const name = currentLang === "ar" ? item.name : (item.name_en || item.name);
+                    let name = currentLang === "ar" ? item.name : (item.name_en || item.name);
+                    if (item.selectedFlavor) {
+                        const flavorName = currentLang === 'ar' ? item.selectedFlavor.name_ar : item.selectedFlavor.name_en;
+                        name += ` (${flavorName})`;
+                    }
                     const currency = translations[currentLang]?.currency || 'جنية';
 
                     const cartItemElement = document.createElement('div');
@@ -631,11 +678,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="item-actions-row">
                                 <div class="item-quantity">
-                                    <button class="decrease-quantity" data-id="${item.id}">-</button>
+                                    <button class="decrease-quantity" data-id="${item.cartId || item.id}">-</button>
                                     <span>${item.quantity}</span>
-                                    <button class="increase-quantity" data-id="${item.id}">+</button>
+                                    <button class="increase-quantity" data-id="${item.cartId || item.id}">+</button>
                                 </div>
-                                <button class="remove-item" data-id="${item.id}"><i class="fas fa-trash-alt"></i></button>
+                                <button class="remove-item" data-id="${item.cartId || item.id}"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     `;
@@ -656,22 +703,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // إضافة منتج إلى السلة
-    function addToCart(productId) {
+    function addToCart(productId, flavor = null) {
         const product = products.find(p => p.id === productId);
         if (product) {
-            const existingItem = cart.find(item => item.id === productId);
+            const cartId = flavor ? `${productId}-${flavor.id}` : `${productId}`;
+            const existingItem = cart.find(item => item.cartId === cartId);
             if (existingItem) {
                 existingItem.quantity++;
             } else {
-                cart.push({ ...product, quantity: 1 });
+                // Use flavor-specific price if available
+                let itemPrice = product.price;
+                if (flavor && product.flavors) {
+                    const flavorData = product.flavors.find(f => f.id === flavor.id);
+                    if (flavorData && flavorData.price) {
+                        itemPrice = flavorData.price;
+                    }
+                }
+                cart.push({ ...product, price: itemPrice, cartId, selectedFlavor: flavor, quantity: 1 });
             }
             updateCartDisplay();
         }
     }
 
     // تعديل كمية المنتج في السلة
-    function updateQuantity(productId, change) {
-        const itemIndex = cart.findIndex(item => item.id === productId);
+    function updateQuantity(cartId, change) {
+        const itemIndex = cart.findIndex(item => (item.cartId || String(item.id)) === String(cartId));
         if (itemIndex > -1) {
             cart[itemIndex].quantity += change;
             if (cart[itemIndex].quantity <= 0) {
@@ -682,8 +738,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // إزالة منتج من السلة
-    function removeItemFromCart(productId) {
-        cart = cart.filter(item => item.id !== productId);
+    function removeItemFromCart(cartId) {
+        cart = cart.filter(item => (item.cartId || String(item.id)) !== String(cartId));
         updateCartDisplay();
     }
 
@@ -754,7 +810,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const shipping = 20;
 
         cart.forEach(item => {
-            const name = currentLang === "ar" ? item.name : (item.name_en || item.name);
+            let name = currentLang === "ar" ? item.name : (item.name_en || item.name);
+            if (item.selectedFlavor) {
+                const flavorName = currentLang === 'ar' ? item.selectedFlavor.name_ar : item.selectedFlavor.name_en;
+                name += ` (${flavorName})`;
+            }
             const currency = translations[currentLang]?.currency || 'EGP';
 
             const div = document.createElement('div');
@@ -768,9 +828,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
                 <div class="chk-qty-controls">
-                    <button type="button" class="chk-decrease" data-id="${item.id}">-</button>
+                    <button type="button" class="chk-decrease" data-id="${item.cartId || item.id}">-</button>
                     <span>${item.quantity}</span>
-                    <button type="button" class="chk-increase" data-id="${item.id}">+</button>
+                    <button type="button" class="chk-increase" data-id="${item.cartId || item.id}">+</button>
                 </div>
             `;
             checkoutItemsList.appendChild(div);
@@ -792,10 +852,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const decreaseBtn = e.target.closest('.chk-decrease');
 
             if (increaseBtn) {
-                updateQuantity(parseInt(increaseBtn.dataset.id), 1);
+                updateQuantity(increaseBtn.dataset.id, 1);
                 renderCheckoutItems();
             } else if (decreaseBtn) {
-                updateQuantity(parseInt(decreaseBtn.dataset.id), -1);
+                updateQuantity(decreaseBtn.dataset.id, -1);
                 renderCheckoutItems();
             }
         });
@@ -1020,10 +1080,68 @@ document.addEventListener('DOMContentLoaded', () => {
         productGrid.addEventListener('click', (e) => {
             if (e.target.classList.contains('add-to-cart-btn')) {
                 const productId = parseInt(e.target.dataset.id);
-                addToCart(productId);
+                const card = e.target.closest('.product-card');
+                const activeFlavorBtn = card.querySelector('.flavor-btn.active');
+                let flavor = null;
+                if (activeFlavorBtn) {
+                    flavor = {
+                        id: activeFlavorBtn.dataset.flavorId,
+                        name_ar: activeFlavorBtn.dataset.flavorNameAr,
+                        name_en: activeFlavorBtn.dataset.flavorNameEn
+                    };
+                }
+                addToCart(productId, flavor);
             }
         });
     }
+
+    window.selectFlavor = function (btn) {
+        const parent = btn.closest('.product-flavors');
+        if (parent) {
+            // Reset all buttons to outline style with their own color
+            parent.querySelectorAll('.flavor-btn').forEach(b => {
+                b.classList.remove('active');
+                const bColor = b.dataset.flavorColor || 'var(--primary-color)';
+                b.style.backgroundColor = 'transparent';
+                b.style.color = bColor;
+                b.style.borderColor = bColor;
+            });
+            // Set active button to filled style
+            btn.classList.add('active');
+            const activeColor = btn.dataset.flavorColor || 'var(--primary-color)';
+            btn.style.backgroundColor = activeColor;
+            btn.style.color = '#fff';
+            btn.style.borderColor = activeColor;
+        }
+        // Update displayed price if flavor has its own price
+        const flavorPrice = btn.dataset.flavorPrice;
+        if (flavorPrice) {
+            const card = btn.closest('.product-card');
+            if (card) {
+                const priceEl = card.querySelector('.product-price');
+                if (priceEl) {
+                    const currency = translations[currentLang]?.currency || 'جنية';
+                    priceEl.textContent = `${parseFloat(flavorPrice).toFixed(3)} ${currency}`;
+                }
+            }
+        }
+
+        // Update displayed image if flavor has its own image
+        const flavorImage = btn.dataset.flavorImage;
+        if (flavorImage) {
+            const card = btn.closest('.product-card');
+            if (card) {
+                const imgEl = card.querySelector('img');
+                if (imgEl) {
+                    imgEl.style.opacity = '0.5';
+                    setTimeout(() => {
+                        imgEl.src = flavorImage;
+                        imgEl.style.opacity = '1';
+                    }, 150);
+                }
+            }
+        }
+    };
 
     if (cartItemsContainer) {
         cartItemsContainer.addEventListener('click', (e) => {
@@ -1032,11 +1150,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const removeBtn = e.target.closest('.remove-item');
 
             if (increaseBtn) {
-                updateQuantity(parseInt(increaseBtn.dataset.id), 1);
+                updateQuantity(increaseBtn.dataset.id, 1);
             } else if (decreaseBtn) {
-                updateQuantity(parseInt(decreaseBtn.dataset.id), -1);
+                updateQuantity(decreaseBtn.dataset.id, -1);
             } else if (removeBtn) {
-                removeItemFromCart(parseInt(removeBtn.dataset.id));
+                removeItemFromCart(removeBtn.dataset.id);
             }
         });
     }
@@ -1073,6 +1191,30 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // Footer quick links filtering
+    const footerFilterLinks = document.querySelectorAll('.footer-filter-link');
+    footerFilterLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const filter = link.getAttribute('data-filter');
+            currentCategoryFilter = filter;
+
+            // Update active state on main filter options too
+            filterOptions.forEach(b => b.classList.remove('active'));
+            const matchingOption = document.querySelector(`.filter-option[data-filter="${filter}"]`);
+            if (matchingOption) matchingOption.classList.add('active');
+
+            displayProducts();
+
+            // Scroll to products section
+            const productsSection = document.getElementById('products');
+            if (productsSection) {
+                const offset = productsSection.offsetTop - 80;
+                window.scrollTo({ top: offset, behavior: 'smooth' });
+            }
+        });
+    });
 
     /* ===== Slider Script ===== */
     const slides = document.querySelectorAll(".slide");
