@@ -702,6 +702,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // ===== Toast Notification =====
+    let toastTimeout = null;
+    function showToast(productName) {
+        let toast = document.getElementById('cart-toast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'cart-toast';
+            toast.className = 'toast-notification';
+            document.body.appendChild(toast);
+        }
+
+        const msg = currentLang === 'ar'
+            ? `تمت إضافة ${productName} إلى السلة`
+            : `${productName} added to cart`;
+
+        toast.innerHTML = `<span class="toast-icon">✓</span> ${msg}`;
+
+        // Reset: remove show class, force reflow, then add
+        toast.classList.remove('show');
+        void toast.offsetWidth;
+        toast.classList.add('show');
+
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(() => {
+            toast.classList.remove('show');
+        }, 2500);
+    }
+
     // إضافة منتج إلى السلة
     function addToCart(productId, flavor = null) {
         const product = products.find(p => p.id === productId);
@@ -713,15 +741,40 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 // Use flavor-specific price if available
                 let itemPrice = product.price;
+                let itemImage = product.image;
                 if (flavor && product.flavors) {
                     const flavorData = product.flavors.find(f => f.id === flavor.id);
                     if (flavorData && flavorData.price) {
                         itemPrice = flavorData.price;
                     }
+                    // Use flavor-specific image if available
+                    if (flavor.image && flavor.image !== '') {
+                        itemImage = flavor.image;
+                    } else if (flavorData && flavorData.image) {
+                        itemImage = flavorData.image;
+                    }
                 }
-                cart.push({ ...product, price: itemPrice, cartId, selectedFlavor: flavor, quantity: 1 });
+                cart.push({ ...product, price: itemPrice, image: itemImage, cartId, selectedFlavor: flavor, quantity: 1 });
             }
             updateCartDisplay();
+
+            // Show toast notification with product name
+            let displayName = currentLang === 'ar' ? product.name : (product.name_en || product.name);
+            if (flavor) {
+                const flavorName = currentLang === 'ar' ? flavor.name_ar : flavor.name_en;
+                if (flavorName) displayName += ` - ${flavorName}`;
+            }
+            showToast(displayName);
+
+            // Bounce cart icon
+            if (cartIcon) {
+                cartIcon.classList.remove('bounce');
+                void cartIcon.offsetWidth;
+                cartIcon.classList.add('bounce');
+                cartIcon.addEventListener('animationend', () => {
+                    cartIcon.classList.remove('bounce');
+                }, { once: true });
+            }
         }
     }
 
@@ -1078,16 +1131,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // معالجة النقر على أزرار إضافة/تعديل/حذف المنتجات
     if (productGrid) {
         productGrid.addEventListener('click', (e) => {
-            if (e.target.classList.contains('add-to-cart-btn')) {
-                const productId = parseInt(e.target.dataset.id);
+            const addBtn = e.target.closest('.add-to-cart-btn');
+            if (addBtn) {
+                const productId = parseInt(addBtn.dataset.id || addBtn.getAttribute('data-id'));
                 const card = e.target.closest('.product-card');
                 const activeFlavorBtn = card.querySelector('.flavor-btn.active');
                 let flavor = null;
                 if (activeFlavorBtn) {
                     flavor = {
-                        id: activeFlavorBtn.dataset.flavorId,
-                        name_ar: activeFlavorBtn.dataset.flavorNameAr,
-                        name_en: activeFlavorBtn.dataset.flavorNameEn
+                        id: activeFlavorBtn.getAttribute('data-flavor-id'),
+                        name_ar: activeFlavorBtn.getAttribute('data-flavor-name-ar'),
+                        name_en: activeFlavorBtn.getAttribute('data-flavor-name-en'),
+                        image: activeFlavorBtn.getAttribute('data-flavor-image') || ''
                     };
                 }
                 addToCart(productId, flavor);
@@ -1101,20 +1156,20 @@ document.addEventListener('DOMContentLoaded', () => {
             // Reset all buttons to outline style with their own color
             parent.querySelectorAll('.flavor-btn').forEach(b => {
                 b.classList.remove('active');
-                const bColor = b.dataset.flavorColor || 'var(--primary-color)';
+                const bColor = b.getAttribute('data-flavor-color') || 'var(--primary-color)';
                 b.style.backgroundColor = 'transparent';
                 b.style.color = bColor;
                 b.style.borderColor = bColor;
             });
             // Set active button to filled style
             btn.classList.add('active');
-            const activeColor = btn.dataset.flavorColor || 'var(--primary-color)';
+            const activeColor = btn.getAttribute('data-flavor-color') || 'var(--primary-color)';
             btn.style.backgroundColor = activeColor;
             btn.style.color = '#fff';
             btn.style.borderColor = activeColor;
         }
         // Update displayed price if flavor has its own price
-        const flavorPrice = btn.dataset.flavorPrice;
+        const flavorPrice = btn.getAttribute('data-flavor-price');
         if (flavorPrice) {
             const card = btn.closest('.product-card');
             if (card) {
@@ -1127,8 +1182,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Update displayed image if flavor has its own image
-        const flavorImage = btn.dataset.flavorImage;
-        if (flavorImage) {
+        const flavorImage = btn.getAttribute('data-flavor-image');
+        if (flavorImage && flavorImage !== '') {
             const card = btn.closest('.product-card');
             if (card) {
                 const imgEl = card.querySelector('img');

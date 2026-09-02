@@ -2021,3 +2021,66 @@ body, header, .search-box, .product-card, .cart-content,
 .back-btn, .success-content, .lang-menu, .features-bar {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+/* ===== Toast Notification ===== */
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: linear-gradient(135deg, #1a2a3a, #243447);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    z-index: 99999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 90vw;
+    white-space: nowrap;
+    border: 1px solid rgba(91, 192, 222, 0.3);
+}
+
+.toast-notification.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+}
+
+.toast-notification .toast-icon {
+    background-color: #2ecc71;
+    color: #fff;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+/* Dark mode toast */
+body.dark-mode .toast-notification {
+    background: linear-gradient(135deg, #0d1b2a, #1b2838);
+    border-color: rgba(91, 192, 222, 0.4);
+}
+
+/* ===== Cart Icon Bounce Animation ===== */
+@keyframes cartBounce {
+    0%   { transform: scale(1); }
+    30%  { transform: scale(1.35); }
+    50%  { transform: scale(0.9); }
+    70%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+.cart-icon.bounce {
+    animation: cartBounce 0.5s ease;
+}
