@@ -880,14 +880,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>${item.price.toFixed(3)} ${currency}</p>
                     </div>
                 </div>
-                <div class="chk-qty-controls">
-                    <button type="button" class="chk-decrease" data-id="${item.cartId || item.id}">-</button>
-                    <span>${item.quantity}</span>
-                    <button type="button" class="chk-increase" data-id="${item.cartId || item.id}">+</button>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="chk-qty-controls">
+                        <button type="button" class="chk-decrease" data-id="${item.cartId || item.id}">-</button>
+                        <span>${item.quantity}</span>
+                        <button type="button" class="chk-increase" data-id="${item.cartId || item.id}">+</button>
+                    </div>
+                    <button type="button" class="chk-remove-item" data-id="${item.cartId || item.id}" style="background: none; border: none; color: #ff4d4d; font-size: 1.2rem; cursor: pointer; padding: 5px;" title="حذف المنتج">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
                 </div>
-                <button type="button" class="chk-remove-item" data-id="${item.cartId || item.id}" style="background: none; border: none; color: #ff4d4d; font-size: 1.2rem; cursor: pointer; padding: 5px; margin-right: 10px;" title="حذف المنتج">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
             `;
             checkoutItemsList.appendChild(div);
             subtotal += item.price * item.quantity;
