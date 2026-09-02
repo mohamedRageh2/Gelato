@@ -676,7 +676,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h4>${name}</h4>
                                 <p>${item.price.toFixed(3)} ${currency}</p>
                             </div>
-                            <div class="item-actions-row">
+                            <div class="item-actions-row" style="justify-content: flex-start; gap: 10px;">
                                 <div class="item-quantity">
                                     <button class="decrease-quantity" data-id="${item.cartId || item.id}">-</button>
                                     <span>${item.quantity}</span>
