@@ -365,6 +365,15 @@ header nav ul li a:hover {
     margin-bottom: 8px;
 }
 
+.product-carton {
+    font-size: 12px;
+    color: #555555;
+    margin-top: 2px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
 .product-info p {
     color: hsl(0, 55%, 4%);
     font-size: 0.95rem;
@@ -1835,6 +1844,10 @@ body.dark-mode .product-info h3 {
 
 body.dark-mode .product-info p {
     color: #aaa;
+}
+
+body.dark-mode .product-carton {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 /* Cart Modal */

@@ -79,16 +79,18 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'استيك ايس كريم فاخر بنكهة الشوكليت مصنوع من أجودالمكونات.',
             description_en: 'Premium ice cream with a chocolate flavor, made from the finest ingredien.',
             price: 110,
-            image: "img/product-9.jpeg"
+            image: "img/product-9.jpeg",
+            carton: 12
         },
         {
             id: 5,
-            name: 'فسدقه حليب مغطي بالبستاشيو',
+            name: 'فسدقة حليب مغطي بالبستاشيو',
             name_en: 'Pistachio milk topped with pistachios',
             description: 'آيس كريم منعش بنكهة الفانيليا والشوكليت استيك.',
             description_en: 'Refreshing vanilla and chocolate flavored ice cream.',
             price: 115,
-            image: "img/product-13.jpeg"
+            image: "img/product-13.jpeg",
+            carton: 25
         },
         {
             id: 6,
@@ -97,7 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'بيتزا ايس كريم بنكهة البستاشيو و الفستق مصنوع من اجود المكونات  .',
             description_en: 'Pistachio and pistachio flavor ice cream pizza, made from the finest ingredients.',
             price: 135,
-            image: "img/product-14.jpeg"
+            image: "img/product-14.jpeg",
+            carton: 6
         },
         {
             id: 7,
@@ -107,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Golden cone ice cream in great flavors.',
             price: 115,
             image: "img/product-15.jpeg",
+            carton: 25,
             flavors: [
                 { id: 'milk', name_ar: 'حليب', name_en: 'Milk' },
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
@@ -122,6 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Refreshing vanilla and berry or crunchy chocolate flavored ice cream.',
             price: 110,
             image: "img/product-20.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'berry', name_ar: 'توت', name_en: 'Berry', image: 'img/product-20.jpeg' },
                 { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-45.jpeg' }
@@ -135,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Milk-filled biscuit burger ice cream in great flavors.',
             price: 110,
             image: "img/product-22.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-22.jpeg' },
                 { id: 'pist', name_ar: 'بستاشيو', name_en: 'Pistachio', image: 'img/product-25.jpeg' }
@@ -148,7 +154,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'ايس كريم بنكهة الفانيليا والاوريو مصنوع من اجود المكونات ',
             description_en: 'Vanilla and Oreo flavored ice cream, made from the finest ingredients.',
             price: 115,
-            image: "img/product-24.jpeg"
+            image: "img/product-24.jpeg",
+            carton: 25
         },
 
         {
@@ -158,7 +165,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'ايس كريم بنكهةالبستاشيو مصنوع من اجود المكونات استيك',
             description_en: 'Pistachio flavored ice cream, made from the finest ingredients.',
             price: 110,
-            image: "img/product-26.jpeg"
+            image: "img/product-26.jpeg",
+            carton: 12
         },
         {
             id: 18,
@@ -168,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Cheese ice cream with a great blend of flavors.',
             price: 165,
             image: "img/product-27.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-27.jpeg' },
                 { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-52.jpeg' }
@@ -180,7 +189,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'ايس كريم بنكهة الفانيليا شوكليت مصنوع من اجود المكونات كونو',
             description_en: 'Vanilla and Chocolate flavored ice cream, made from the finest ingredients.',
             price: 115,
-            image: "img/product-28.jpeg"
+            image: "img/product-28.jpeg",
+            carton: 25
         },
 
         {
@@ -190,7 +200,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'ايس كريم بنكهة البستاشيو مصنوع من اجود المكزنات كونو',
             description_en: 'Pistachio flavored ice cream, made from the finest ingredients.',
             price: 160,
-            image: "img/product-49.jpeg"
+            image: "img/product-49.jpeg",
+            carton: 12
         },
         {
             id: 23,
@@ -199,16 +210,18 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'ايس كريم بنكهة الفانيليا شوكليت مصنوع من اجود المكزنات كب',
             description_en: 'Vanilla & Chocolate flavored ice cream, made from the finest ingredients.',
             price: 85,
-            image: "img/product-32.jpeg"
+            image: "img/product-32.jpeg",
+            carton: 18
         },
         {
             id: 24,
-            name: 'ميكس كونو كراميل مغطي بالحليب مغطي بالشوكولاته',
+            name: 'مكس كونو كراميل مغطي بالحليب مغطي بالشوكولاته',
             name_en: 'Mixed caramel cones covered in milk and chocolate',
             description: 'ايس كريم بنكهةالشوكليت والكراميل مضنوع من اجود المكونات',
             description_en: 'Chocolate and Caramel flavored ice cream, made from the finest ingredients.',
             price: 110,
-            image: "img/product-33.jpeg"
+            image: "img/product-33.jpeg",
+            carton: 12
         },
         {
             id: 25,
@@ -218,6 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Majestic stick ice cream available in great flavors.',
             price: 110,
             image: "img/product-48.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-48.jpeg' },
                 { id: 'choc', name_ar: 'شوكولاتة', name_en: 'Chocolate', image: 'img/product-46.jpeg' },
@@ -232,7 +246,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'آيس كريم استيك بنكهة السوبيا والفراولة.',
             description_en: 'Sobia and strawberry flavor stick ice cream.',
             price: 115,
-            image: "img/product-36.jpeg"
+            image: "img/product-36.jpeg",
+            carton: 25
         },
         {
             id: 31,
@@ -241,7 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'آيس كريم استيك شوكولاتة غني.',
             description_en: 'Rich chocolate stick ice cream.',
             price: 115,
-            image: "img/product-37.jpeg"
+            image: "img/product-37.jpeg",
+            carton: 25
         },
 
         {
@@ -251,7 +267,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'آيس كريم استيك منعش بطعم الموز.',
             description_en: 'Refreshing banana flavored stick ice cream.',
             price: 115,
-            image: "img/product-39.jpeg"
+            image: "img/product-39.jpeg",
+            carton: 25
         },
         {
             id: 38,
@@ -260,7 +277,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'آيس كريم جويل استيك مغطى بالشوكولاتة.',
             description_en: 'Jewel stick ice cream coated in chocolate.',
             price: 115,
-            image: "img/product-44.jpeg"
+            image: "img/product-44.jpeg",
+            carton: 25
         },
 
 
@@ -271,7 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
             price: 110,
-            image: "img/product-47.jpeg"
+            image: "img/product-47.jpeg",
+            carton: 12
         },
         {
             id: 42,
@@ -280,7 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
             price: 220,
-            image: "img/product-50.jpeg"
+            image: "img/product-50.jpeg",
+            carton: 12
         },
 
 
@@ -291,7 +311,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
             price: 220,
-            image: "img/product-53.jpeg"
+            image: "img/product-53.jpeg",
+            carton: 12
         },
         {
             id: 45,
@@ -301,6 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Mario cookies & cream flavored cone.',
             price: 165,
             image: "img/product-54.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-54.jpeg' },
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-55.jpeg' }
@@ -313,7 +335,8 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'كونو ماريو بنكهة الكوكيز آند كريم.',
             description_en: 'Mario cookies & cream flavored cone.',
             price: 115,
-            image: "img/product-56.jpeg"
+            image: "img/product-56.jpeg",
+            carton: 25
         },
         {
             id: 50,
@@ -323,6 +346,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description_en: 'Roze.',
             price: 110,
             image: "img/product-41.jpeg",
+            carton: 12,
             flavors: [
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
                 { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry' }
@@ -342,8 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', price: 100 },
                 { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', price: 100 }
             ]
-        },
-
+        }
     ];
 
     let currentCategoryFilter = 'all';
@@ -437,12 +460,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 flavorsHtml += '</div>';
             }
 
+            const cartonText = product.carton
+                ? (currentLang === 'ar' ? `🎁 الكرتونة: ${product.carton} قطعة` : `🎁 Carton: ${product.carton} pcs`)
+                : '';
+            const cartonHtml = cartonText ? `<div class="product-carton">${cartonText}</div>` : '';
+
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
             productCard.innerHTML = `
                 <img src="${displayImage}" alt="${name}">
                 <div class="product-info">
                     <h3>${name}</h3>
+                    ${cartonHtml}
                     <p style="display:none;">${description}</p>
                     <div class="product-price">${displayPrice.toFixed(3)} ${currency}</div>
                     ${flavorsHtml}
