@@ -676,13 +676,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h4>${name}</h4>
                                 <p>${item.price.toFixed(3)} ${currency}</p>
                             </div>
-                            <div class="item-actions-row" style="display: flex; align-items: center; gap: 8px;">
-                                <button class="remove-item" data-id="${item.cartId || item.id}"><i class="fas fa-trash-alt"></i></button>
+                            <div class="item-actions-row" style="display: flex; align-items: center; gap: 12px; justify-content: flex-start;">
                                 <div class="item-quantity">
-                                    <button class="increase-quantity" data-id="${item.cartId || item.id}">+</button>
-                                    <span>${item.quantity}</span>
                                     <button class="decrease-quantity" data-id="${item.cartId || item.id}">-</button>
+                                    <span>${item.quantity}</span>
+                                    <button class="increase-quantity" data-id="${item.cartId || item.id}">+</button>
                                 </div>
+                                <button class="remove-item" data-id="${item.cartId || item.id}" title="حذف المنتج"><i class="fas fa-trash-alt"></i></button>
                             </div>
                         </div>
                     `;

@@ -998,29 +998,29 @@ footer {
     }
 
     .cart-item {
-        flex-direction: column;
-        align-items: flex-end;
+        flex-direction: row;
+        align-items: center;
         text-align: right;
     }
 
     .cart-item img {
-        margin-left: 0;
-        margin-bottom: 15px;
+        margin-left: 10px;
+        margin-bottom: 0;
     }
 
     .item-details {
-        width: 100%;
-        margin-bottom: 10px;
+        width: auto;
+        margin-bottom: 5px;
     }
 
     .item-quantity {
-        width: 100%;
-        justify-content: flex-end;
+        width: auto;
+        justify-content: flex-start;
         margin-left: 0;
     }
 
     .remove-item {
-        margin-top: 15px;
+        margin-top: 0;
     }
 
     .checkout-btn {
