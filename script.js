@@ -112,9 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "img/product-15.jpeg",
             carton: 25,
             flavors: [
-                { id: 'milk', name_ar: 'حليب', name_en: 'Milk' },
-                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
-                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry' }
+                { id: 'milk', name_ar: 'حليب', name_en: 'Milk', image: 'img/product-15.jpeg' },
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-58.jpeg' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-59.jpeg' }
             ]
         },
 
@@ -204,16 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             carton: 12
         },
         {
-            id: 23,
-            name: 'كريزي حليب علي شوكولاته',
-            name_en: 'Crazy Milk on Chocolate',
-            description: 'ايس كريم بنكهة الفانيليا شوكليت مصنوع من اجود المكزنات كب',
-            description_en: 'Vanilla & Chocolate flavored ice cream, made from the finest ingredients.',
-            price: 85,
-            image: "img/product-32.jpeg",
-            carton: 18
-        },
-        {
             id: 24,
             name: 'مكس كونو كراميل مغطي بالحليب مغطي بالشوكولاته',
             name_en: 'Mixed caramel cones covered in milk and chocolate',
@@ -239,16 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
 
-        {
-            id: 30,
-            name: 'سوبيا فراولة',
-            name_en: 'Sobia Strawberry ',
-            description: 'آيس كريم استيك بنكهة السوبيا والفراولة.',
-            description_en: 'Sobia and strawberry flavor stick ice cream.',
-            price: 115,
-            image: "img/product-36.jpeg",
-            carton: 25
-        },
         {
             id: 31,
             name: 'بيج ايس بطعم شوكولاته',
@@ -353,6 +333,16 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         {
+            id: 50,
+            name: 'كندر',
+            name_en: 'kinder',
+            description: ';كندر',
+            description_en: 'kinder.',
+            price: 110,
+            image: "img/product-21.jpeg",
+            carton: 12,
+        },
+        {
             id: 48,
             name: 'جالون 3 لتر عائلي',
             name_en: '3 liter family gallon',
@@ -366,6 +356,30 @@ document.addEventListener('DOMContentLoaded', () => {
                 { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', price: 100 },
                 { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', price: 100 }
             ]
+        },
+        {
+            id: 51,
+            name: 'فووب استيك',
+            name_en: ' Stick foop',
+            description: 'آيس كريم استيك فوب متوفر بنكهتي التوت والليمون نعناع.',
+            description_en: 'Vop stick ice cream available in berry and lemon mint flavors.',
+            price: 115,
+            image: "img/product-61.jpeg",
+            carton: 25,
+            flavors: [
+                { id: 'berry', name_ar: 'توت', name_en: 'Berry', image: 'img/product-61.jpeg' },
+                { id: 'mint', name_ar: 'ليمون نعناع', name_en: 'Lemon Mint', image: 'img/product-60.jpeg' }
+            ]
+        },
+        {
+            id: 52,
+            name: 'زووم مانجا',
+            name_en: 'Zoom Mango',
+            description: 'آيس كريم بنكهة المانجو المنعشة.',
+            description_en: 'Refreshing mango flavored ice cream.',
+            price: 115,
+            image: "img/product-62.jpeg",
+            carton: 25
         }
     ];
 
@@ -419,6 +433,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 'mango': '#F5A623',
                 'milk': '#D4A76A',
                 'berry': '#8B3A8B',
+                'mint': '#2ECC71',
                 'pist': '#6B9B37',
                 'caramel': '#C68E3C',
                 'vanilla': '#F3E5AB'
@@ -473,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3>${name}</h3>
                     ${cartonHtml}
                     <p style="display:none;">${description}</p>
-                    <div class="product-price">${displayPrice.toFixed(3)} ${currency}</div>
+                    <div class="product-price">${Math.round(displayPrice)} ${currency}</div>
                     ${flavorsHtml}
                     <button class="btn add-to-cart-btn" data-id="${product.id}">
                         ${currentLang === "ar" ? "أضف إلى السلة" : "Add to Cart"}
@@ -512,8 +527,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currency: "جنية",
             checkoutTitle: "إتمام الطلب",
             shippingAddress: "عنوان التوصيل",
-            emailLabel: "البريد الإلكتروني",
-            emailPlaceholder: "أدخل بريدك الإلكتروني",
+            emailLabel: "البريد الإلكتروني (اختياري)",
+            emailPlaceholder: "أدخل بريدك الإلكتروني (اختياري)",
             nameLabel: "الاسم",
             namePlaceholder: "أدخل اسمك",
             govLabel: "المحافظة",
@@ -591,8 +606,8 @@ document.addEventListener('DOMContentLoaded', () => {
             currency: "EGP",
             checkoutTitle: "Complete Order",
             shippingAddress: "Shipping Address",
-            emailLabel: "Email",
-            emailPlaceholder: "Enter your email",
+            emailLabel: "Email (Optional)",
+            emailPlaceholder: "Enter your email (Optional)",
             nameLabel: "Name",
             namePlaceholder: "Enter your name",
             govLabel: "Governorate",
@@ -703,7 +718,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="item-info-container">
                             <div class="item-details">
                                 <h4>${name}</h4>
-                                <p>${item.price.toFixed(3)} ${currency}</p>
+                                <p>${Math.round(item.price)} ${currency}</p>
                             </div>
                             <div class="item-actions-row" style="display: flex; align-items: center; gap: 12px; justify-content: flex-start;">
                                 <div class="item-quantity">
@@ -719,7 +734,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     total += item.price * item.quantity;
                 });
             }
-            if (cartTotalSpan) cartTotalSpan.textContent = total.toFixed(3);
+            if (cartTotalSpan) cartTotalSpan.textContent = Math.round(total);
         }
 
         if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -889,7 +904,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let subtotal = 0;
-        const shipping = 20;
+        const shipping = 0;
 
         cart.forEach(item => {
             let name = currentLang === "ar" ? item.name : (item.name_en || item.name);
@@ -906,7 +921,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <img src="${item.image}" alt="${name}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
                     <div class="checkout-item-details" style="flex-grow: 1; margin: 0;">
                         <h4>${name}</h4>
-                        <p>${item.price.toFixed(3)} ${currency}</p>
+                        <p>${Math.round(item.price)} ${currency}</p>
                     </div>
                 </div>
                 <div style="display: flex; align-items: center; gap: 10px;">
@@ -924,10 +939,10 @@ document.addEventListener('DOMContentLoaded', () => {
             subtotal += item.price * item.quantity;
         });
 
-        checkoutSubtotal.textContent = subtotal.toFixed(3);
+        checkoutSubtotal.textContent = Math.round(subtotal);
         const shippingEl = document.getElementById('checkoutShipping');
-        if (shippingEl) shippingEl.textContent = shipping.toFixed(3);
-        checkoutFinalTotal.textContent = (subtotal + shipping).toFixed(3);
+        if (shippingEl) shippingEl.textContent = Math.round(shipping);
+        checkoutFinalTotal.textContent = Math.round(subtotal + shipping);
 
         const submitBtn = document.querySelector('.place-order-btn');
         if (submitBtn) submitBtn.disabled = false;
@@ -1079,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 phone: phone,
                 governorate: governorate,
                 address: address,
-                email: email,
+                email: email.trim() || (currentLang === 'ar' ? 'غير محدد' : 'Not specified'),
                 products: productsString,
                 paymentMethod: paymentLabels[paymentMethod] || paymentMethod,
                 transactionNumber: transactionNumber || '-',
@@ -1213,7 +1228,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const priceEl = card.querySelector('.product-price');
                 if (priceEl) {
                     const currency = translations[currentLang]?.currency || 'جنية';
-                    priceEl.textContent = `${parseFloat(flavorPrice).toFixed(3)} ${currency}`;
+                    priceEl.textContent = `${Math.round(parseFloat(flavorPrice))} ${currency}`;
                 }
             }
         }

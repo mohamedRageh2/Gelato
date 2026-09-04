@@ -2136,3 +2136,21 @@ body.dark-mode .sticky-checkout-btn-container {
     font-size: 1.1rem;
     padding: 14px 24px;
 }
+
+/* ===== Designer Signature ===== */
+.designer-credit {
+    font-family: 'Poppins', 'Playfair Display', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #e60000;
+    letter-spacing: 1px;
+    margin-top: 8px;
+    margin-bottom: 0;
+    opacity: 1 !important;
+    display: block;
+    text-align: center;
+}
+
+body.dark-mode .designer-credit {
+    color: #ff4d4d;
+}
