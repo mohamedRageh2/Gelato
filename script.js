@@ -532,7 +532,8 @@ document.addEventListener('DOMContentLoaded', () => {
             nameLabel: "الاسم",
             namePlaceholder: "أدخل اسمك",
             govLabel: "المحافظة",
-            govPlaceholder: "أدخل اسم محافظتك",
+            govPlaceholder: "اختر المحافظة",
+            govSelectPlaceholder: "اختر المحافظة",
             addressLabel: "العنوان",
             addressPlaceholder: "أدخل عنوانك",
             phoneLabel: "الهاتف",
@@ -611,7 +612,8 @@ document.addEventListener('DOMContentLoaded', () => {
             nameLabel: "Name",
             namePlaceholder: "Enter your name",
             govLabel: "Governorate",
-            govPlaceholder: "Enter your governorate",
+            govPlaceholder: "Select governorate",
+            govSelectPlaceholder: "Select governorate",
             addressLabel: "Address",
             addressPlaceholder: "Enter your address",
             phoneLabel: "Phone",
@@ -1088,10 +1090,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateStr = now.toLocaleDateString('ar-EG') + ' ' + now.toLocaleTimeString('ar-EG');
             const paymentLabels = { cod: 'الدفع عند الاستلام', vodafone: 'فودافون كاش', instapay: 'Instapay' };
 
+            let formattedPhone = phone ? phone.trim() : '';
+            // حيلة جوجل شيت للحفاظ على الصفر جهة اليسار (إضافة علامة اقتباس مفردة عادية متبوعة بالرقم)
+            if (formattedPhone && !formattedPhone.startsWith("'")) {
+                formattedPhone = "'" + formattedPhone;
+            }
+
             const orderData = {
                 date: dateStr,
                 name: name,
-                phone: phone,
+                phone: formattedPhone,
                 governorate: governorate,
                 address: address,
                 email: email.trim() || (currentLang === 'ar' ? 'غير محدد' : 'Not specified'),
@@ -1125,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return encodeURIComponent(key) + '=' + encodeURIComponent(orderData[key]);
             }).join('&');
 
-            fetch(SHEET_URL + '?' + params, { mode: 'no-cors' })
+                    fetch(SHEET_URL + '?' + params, { mode: 'no-cors' })
                 .then(function () {
                     const successModal = document.getElementById('success-modal');
                     if (successModal) {
@@ -1139,7 +1147,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 localStorage.removeItem('cart');
                                 updateCartDisplay();
                                 closeCheckout();
-                            });
+                            }, { once: true });
                         }
                     } else {
                         alert(currentLang === 'ar' ? 'تم استلام طلبك بنجاح !' : 'Order placed and saved to Google Sheet!');
@@ -1159,9 +1167,10 @@ document.addEventListener('DOMContentLoaded', () => {
                             backBtn.addEventListener('click', () => {
                                 successModal.classList.remove('active');
                                 cart = [];
+                                localStorage.removeItem('cart');
                                 updateCartDisplay();
                                 closeCheckout();
-                            });
+                            }, { once: true });
                         }
                     } else {
                         alert(currentLang === 'ar' ? 'تم استلام طلبك!' : 'Order received!');
@@ -1233,18 +1242,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Update displayed image if flavor has its own image
+        // Update displayed image if flavor has its own image (Instant swap)
         const flavorImage = btn.getAttribute('data-flavor-image');
         if (flavorImage && flavorImage !== '') {
             const card = btn.closest('.product-card');
             if (card) {
                 const imgEl = card.querySelector('img');
                 if (imgEl) {
-                    imgEl.style.opacity = '0.5';
-                    setTimeout(() => {
-                        imgEl.src = flavorImage;
-                        imgEl.style.opacity = '1';
-                    }, 150);
+                    imgEl.src = flavorImage;
                 }
             }
         }
@@ -1335,8 +1340,8 @@ document.addEventListener('DOMContentLoaded', () => {
         slides[currentSlide].classList.add("active");
     }
 
-    // تغيير الصورة كل 3 ثواني
-    if (slides.length > 0) setInterval(changeSlide, 3000);
+    // تغيير الصورة كل 1.5 ثانية بدلاً من 3 ثواني
+    if (slides.length > 0) setInterval(changeSlide, 1500);
 
     // زر الانتقال للموقع
     if (enterBtn) {
@@ -1347,7 +1352,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // New Hero Slider logic
+    // New Hero Slider logic (تغيير كل 1.5 ثانية)
     const heroSlides = document.querySelectorAll(".hero-slide");
     let currentHeroSlide = 0;
     if (heroSlides.length > 0) {
@@ -1355,7 +1360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             heroSlides[currentHeroSlide].classList.remove("active");
             currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
             heroSlides[currentHeroSlide].classList.add("active");
-        }, 3000);
+        }, 1500);
     }
 
     // ========== Smooth Scrolling & Navigation Fixes ==========

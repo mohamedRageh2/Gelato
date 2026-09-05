@@ -2137,20 +2137,89 @@ body.dark-mode .sticky-checkout-btn-container {
     padding: 14px 24px;
 }
 
-/* ===== Designer Signature ===== */
+/* ===== Premium Designer Badge & Shimmer Signature ===== */
 .designer-credit {
     font-family: 'Poppins', 'Playfair Display', sans-serif;
-    font-size: 16px;
-    font-weight: 700;
-    color: #e60000;
-    letter-spacing: 1px;
-    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
     margin-bottom: 0;
     opacity: 1 !important;
-    display: block;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    direction: ltr;
+    padding: 6px 18px;
+    background: #111827;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    color: #9ca3af;
 }
 
 body.dark-mode .designer-credit {
-    color: #ff4d4d;
+    background: #0f172a;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.designer-name {
+    color: #ffffff !important;
+    font-weight: 700;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+    padding: 0 4px;
+
+    /* Bright White Text with moving cyan shimmer highlight line */
+    background: linear-gradient(90deg, #ffffff 0%, #ffffff 30%, #38bdf8 50%, #ffffff 70%, #ffffff 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer 2.5s linear infinite;
+}
+
+.designer-name:hover {
+    text-decoration: none;
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
+}
+
+.designer-phone {
+    margin-left: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: transform 0.2s ease;
+    color: #22c55e !important;
+    -webkit-text-fill-color: #22c55e !important;
+    background: none !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    padding-left: 10px;
+}
+
+.designer-phone i {
+    color: #22c55e !important;
+    font-size: 15px;
+    -webkit-text-fill-color: #22c55e !important;
+}
+
+.designer-phone:hover {
+    color: #4ade80 !important;
+    -webkit-text-fill-color: #4ade80 !important;
+    transform: scale(1.05);
+}
+
+@keyframes textShimmer {
+    0% {
+        background-position: 200% center;
+    }
+    100% {
+        background-position: -200% center;
+    }
 }
