@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>معرض الإعلانات والفيديوهات - Gelato</title>
+    <meta name="description" content="شاهد إعلانات منتجات جيلاتو الفاخرة والعروض التشويقية الحصرية">
+    <link rel="icon" type="image/png" href="img/download.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20260906">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --video-card-bg: rgba(255, 255, 255, 0.85);
+            --video-card-border: rgba(230, 0, 126, 0.2);
+            --video-card-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+            --video-text-main: #1e293b;
+            --video-text-sub: #64748b;
+        }
+
+        body.dark-mode {
+            --video-card-bg: rgba(15, 23, 42, 0.85);
+            --video-card-border: rgba(236, 72, 153, 0.3);
+            --video-card-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            --video-text-main: #f8fafc;
+            --video-text-sub: #94a3b8;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color, #f8fafc);
+            color: var(--text-color, #0f172a);
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ====== Video Header ====== */
+        .video-page-header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 14px 0;
+        }
+
+        .video-header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .video-back-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            background: linear-gradient(135deg, #e6007e, #9333ea);
+            padding: 8px 18px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(230, 0, 126, 0.3);
+        }
+
+        .video-back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 0, 126, 0.5);
+        }
+
+        .video-header-logo img {
+            height: 45px;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+        }
+
+        .video-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* ====== Hero Ad Banner ====== */
+        .ad-hero {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #31103f 100%);
+            padding: 60px 20px 80px;
+            text-align: center;
+            color: #ffffff;
+            overflow: hidden;
+        }
+
+        .ad-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(236, 72, 153, 0.15) 0%, transparent 60%);
+            animation: pulseGlow 8s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 0.9; }
+        }
+
+        .ad-hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .ad-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(236, 72, 153, 0.15);
+            border: 1px solid rgba(236, 72, 153, 0.4);
+            color: #f472b6;
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .ad-hero h1 {
+            font-size: 2.8rem;
+            font-weight: 900;
+            margin: 0 0 15px;
+            background: linear-gradient(135deg, #ffffff 30%, #f472b6 70%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+
+        .ad-hero p {
+            font-size: 1.15rem;
+            color: #cbd5e1;
+            margin: 0 0 25px;
+            line-height: 1.6;
+        }
+
+        .ad-notice-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px dashed rgba(255, 255, 255, 0.25);
+            padding: 12px 24px;
+            border-radius: 16px;
+            font-size: 0.92rem;
+            color: #e2e8f0;
+            backdrop-filter: blur(8px);
+        }
+
+        .ad-notice-box i {
+            color: #fbbf24;
+            font-size: 1.2rem;
+        }
+
+        /* ====== Video Showcase Grid ====== */
+        .video-showcase-section {
+            padding: 50px 0 80px;
+            margin-top: -30px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .video-ad-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ====== High-End Commercial Video Card ====== */
+        .ad-card {
+            background: var(--video-card-bg);
+            border: 1px solid var(--video-card-border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: var(--video-card-shadow);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .ad-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(236, 72, 153, 0.6);
+            box-shadow: 0 25px 50px rgba(236, 72, 153, 0.25);
+        }
+
+        /* Top Ad Tag */
+        .ad-card-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            z-index: 5;
+            background: linear-gradient(135deg, #e6007e, #9333ea);
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 800;
+            padding: 5px 14px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Video Container - Abstract Gradient & Player */
+        .ad-video-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Dynamic Animated Background inside wrapper */
+        .ad-video-bg {
+            position: absolute;
+            inset: 0;
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite alternate;
+            opacity: 0.85;
+        }
+
+        .bg-theme-1 { background: linear-gradient(135deg, #4c0519 0%, #831843 50%, #881337 100%); }
+        .bg-theme-2 { background: linear-gradient(135deg, #1e1b4b 0%, #31103f 50%, #4c1d95 100%); }
+        .bg-theme-3 { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); }
+        .bg-theme-4 { background: linear-gradient(135deg, #78350f 0%, #92400e 50%, #b45309 100%); }
+        .bg-theme-5 { background: linear-gradient(135deg, #831843 0%, #701a75 50%, #4c1d95 100%); }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Actual HTML5 Video Tag */
+        .ad-video-element {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+        }
+
+        /* Placeholder Play Button overlay */
+        .ad-video-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(2px);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .ad-card:hover .ad-video-overlay {
+            background: rgba(15, 23, 42, 0.2);
+        }
+
+        .play-ad-btn {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 25px rgba(236, 72, 153, 0.5), 0 0 0 8px rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            padding-right: -4px;
+        }
+
+        .ad-card:hover .play-ad-btn {
+            transform: scale(1.15);
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.7), 0 0 0 12px rgba(255, 255, 255, 0.25);
+        }
+
+        .play-ad-text {
+            margin-top: 12px;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            letter-spacing: 0.5px;
+        }
+
+        /* Ad Info Body */
+        .ad-card-body {
+            padding: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .ad-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--video-text-main);
+            margin: 0 0 10px;
+            line-height: 1.3;
+        }
+
+        .ad-desc {
+            font-size: 0.95rem;
+            color: var(--video-text-sub);
+            margin: 0 0 20px;
+            line-height: 1.6;
+        }
+
+        .ad-card-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-watch-ad {
+            flex: 1;
+            background: linear-gradient(135deg, #e6007e, #9333ea);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(230, 0, 126, 0.3);
+        }
+
+        .btn-watch-ad:hover {
+            opacity: 0.95;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(230, 0, 126, 0.45);
+        }
+
+        .btn-ad-file-info {
+            background: rgba(148, 163, 184, 0.12);
+            color: var(--video-text-sub);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            padding: 12px 14px;
+            border-radius: 14px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            direction: ltr;
+        }
+
+        /* Lightbox Modal */
+        .video-lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .video-lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(16px);
+        }
+
+        .lightbox-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 900px;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .video-lightbox.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            background: #e6007e;
+            transform: rotate(90deg);
+        }
+
+        .lightbox-video-player {
+            width: 100%;
+            max-height: 70vh;
+            background: #000000;
+            display: block;
+        }
+
+        .lightbox-info {
+            padding: 20px 25px;
+            color: #ffffff;
+        }
+
+        .lightbox-info h3 {
+            margin: 0 0 8px;
+            font-size: 1.4rem;
+            color: #f472b6;
+        }
+
+        .lightbox-info p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.98rem;
+        }
+
+        @media (max-width: 768px) {
+            .ad-hero h1 { font-size: 2rem; }
+            .ad-hero p { font-size: 1rem; }
+            .video-ad-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ====== Simple Header ====== -->
+    <header class="video-page-header" id="home">
+        <div class="container video-header-content">
+            <a href="index.html" class="video-back-link">
+                <i class="fas fa-arrow-right"></i>
+                <span data-i18n="backToHome">العودة للمتجر</span>
+            </a>
+            <div class="video-header-logo">
+                <img src="img/download.png" alt="Gelato Logo" class="logo-img">
+            </div>
+            <div class="video-header-actions">
+                <button id="darkModeToggle" class="dark-mode-toggle" aria-label="Toggle Dark Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <div class="lang-dropdown">
+                    <button id="langToggle" class="lang-btn" aria-label="Toggle Language">
+                        <i class="fas fa-globe"></i>
+                    </button>
+                    <ul class="lang-menu" id="langMenu">
+                        <li data-lang="ar">العربية</li>
+                        <li data-lang="en">English</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====== Cinema Hero Banner ====== -->
+    <section class="ad-hero">
+        <div class="ad-hero-content">
+            <div class="ad-badge">
+                <i class="fas fa-sparkles"></i>
+                <span data-i18n="adBadge">معرض الإعلانات التجاريّة</span>
+            </div>
+            <h1 data-i18n="adTitle">إعلانات جيلاتو التشويقية 🎬🍦</h1>
+            <p data-i18n="adSub">شاهد أحدث الإعلانات والعروض الترويجية الحصرية لمنتجات آيس كريم جيلاتو!</p>
+            
+            <div class="ad-notice-box">
+                <i class="fas fa-film"></i>
+                <span data-i18n="adNotice">💡 ضع الفيديوهات في مجلد <code>videos/</code> بالأسماء (<code>ad-1.mp4</code> إلى <code>ad-5.mp4</code>) لتظهر وتعمل فوراً!</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== 5 Commercial Ad Video Cards Section ====== -->
+    <section class="video-showcase-section">
+        <div class="video-ad-grid" id="videoAdGrid">
+            <!-- 5 Commercial Video Cards will be dynamically inserted -->
+        </div>
+    </section>
+
+    <!-- ====== Video Lightbox Modal ====== -->
+    <div class="video-lightbox" id="videoLightbox">
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">&times;</button>
+            <video class="lightbox-video-player" id="lightboxVideo" controls playsinline autoplay>
+                <source src="" type="video/mp4">
+                متصفحك لا يدعم تشغيل الفيديو.
+            </video>
+            <div class="lightbox-info">
+                <h3 id="lightboxTitle"></h3>
+                <p id="lightboxDesc"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====== Footer ====== -->
+    <footer>
+        <div class="footer-bottom" style="background: #090d16; color: #94a3b8; padding: 25px 0; text-align: center;">
+            <div class="container footer-bottom-container">
+                <p data-i18n="footerRights">&copy; 2026 Gelato Happiness. جميع الحقوق محفوظة</p>
+                <p class="designer-credit" style="margin-top: 8px;">Design by <a href="https://www.facebook.com/share/1K3m48G1TV/" target="_blank" rel="noopener noreferrer" style="color: #ec4899; text-decoration: none; font-weight: bold;">Mohamed Rageh</a> <a href="https://wa.me/201014630154" target="_blank" rel="noopener noreferrer" style="color: #25d366; text-decoration: none; margin-right: 8px;"><i class="fab fa-whatsapp"></i> 01014630154</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // ===== Dark Mode =====
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const savedDarkMode = localStorage.getItem('darkMode');
+        if (savedDarkMode === 'enabled') {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+        }
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = darkModeToggle.querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+        }
+
+        // ===== Language System =====
+        let currentLang = localStorage.getItem('lang') || 'ar';
+        const langToggle = document.getElementById('langToggle');
+        const langMenu = document.getElementById('langMenu');
+        const langDropdown = document.querySelector('.lang-dropdown');
+
+        const translations = {
+            ar: {
+                backToHome: "العودة للمتجر",
+                adBadge: "معرض الإعلانات التجاريّة",
+                adTitle: "إعلانات جيلاتو التشويقية 🎬🍦",
+                adSub: "شاهد أحدث الإعلانات والعروض الترويجية الحصرية لمنتجات آيس كريم جيلاتو!",
+                adNotice: "💡 ضع الفيديوهات في مجلد <code>videos/</code> بالأسماء (<code>ad-1.mp4</code> إلى <code>ad-5.mp4</code>) لتظهر وتعمل فوراً!",
+                footerRights: "&copy; 2026 Gelato Happiness. جميع الحقوق محفوظة",
+                playAd: "شاهد الإعلان 🎬",
+                adBadgeLabel: "إعلان حصري 🌟"
+            },
+            en: {
+                backToHome: "Back to Shop",
+                adBadge: "Commercial Ads Showcase",
+                adTitle: "Gelato Promo Showcase 🎬🍦",
+                adSub: "Watch our latest exclusive ads and commercials for Gelato ice cream products!",
+                adNotice: "💡 Place video files in <code>videos/</code> folder named (<code>ad-1.mp4</code> to <code>ad-5.mp4</code>) to play automatically!",
+                footerRights: "&copy; 2026 Gelato Happiness. All rights reserved",
+                playAd: "Watch Commercial 🎬",
+                adBadgeLabel: "Exclusive Ad 🌟"
+            }
+        };
+
+        function applyLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerHTML = translations[lang][key];
+            });
+            localStorage.setItem('lang', lang);
+        }
+
+        if (langToggle && langDropdown) {
+            langToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown.classList.toggle('active');
+            });
+        }
+        document.addEventListener('click', () => {
+            if (langDropdown && langDropdown.classList.contains('active')) langDropdown.classList.remove('active');
+        });
+        if (langMenu) {
+            langMenu.addEventListener('click', (e) => {
+                if (e.target.tagName === 'LI') {
+                    const selectedLang = e.target.getAttribute('data-lang');
+                    if (selectedLang !== currentLang) {
+                        currentLang = selectedLang;
+                        applyLanguage(currentLang);
+                        renderAdCards();
+                    }
+                    langDropdown.classList.remove('active');
+                }
+            });
+        }
+
+        // ===== 5 Commercial Ads Data (NO Static Images) =====
+        const adsData = [
+            {
+                id: 1,
+                title_ar: "إعلان 1: انطلاقة الصيف وسحر الانتعاش 🌴🍨",
+                title_en: "Ad 1: Summer Refresh & Frozen Magic 🌴🍨",
+                desc_ar: "إعلان تشويقي يعرض لقطات منعشة لطعم الجيلاتو المميز في أوقات الصيف الحارة.",
+                desc_en: "Teaser commercial featuring refreshing shots of signature Gelato in warm summer moments.",
+                fileName: "ad-1.mp4",
+                videoPath: "videos/ad-1.mp4",
+                themeClass: "bg-theme-1",
+                badge_ar: "إعلان 1 🎬",
+                badge_en: "Promo 1 🎬"
+            },
+            {
+                id: 2,
+                title_ar: "إعلان 2: عالم الشيكولاته البلجيكية الفاخرة 🍫✨",
+                title_en: "Ad 2: Belgian Dark Chocolate World 🍫✨",
+                desc_ar: "تجربة إعلانية تأخذك في رحلة مع طعم الشيكولاته المظلمة والمقرمشة الفريدة.",
+                desc_en: "Commercial experience taking you on a journey with rich Belgian dark chocolate.",
+                fileName: "ad-2.mp4",
+                videoPath: "videos/ad-2.mp4",
+                themeClass: "bg-theme-2",
+                badge_ar: "إعلان 2 🍫",
+                badge_en: "Promo 2 🍫"
+            },
+            {
+                id: 3,
+                title_ar: "إعلان 3: سر البستاشيو الإيطالي الأصيل 🥜🔥",
+                title_en: "Ad 3: Authentic Italian Pistachio 🥜🔥",
+                desc_ar: "عرض ترويجي خاص لمنتج البستاشيو الفاخر المزين بمكسرات الفستق الحلبي.",
+                desc_en: "Special promotional showcase for premium pistachio topped with fresh nuts.",
+                fileName: "ad-3.mp4",
+                videoPath: "videos/ad-3.mp4",
+                themeClass: "bg-theme-3",
+                badge_ar: "إعلان 3 🌟",
+                badge_en: "Promo 3 🌟"
+            },
+            {
+                id: 4,
+                title_ar: "إعلان 4: فرحة العائلة والعبوات الكبيرة 👨‍👩‍👧‍👦🎉",
+                title_en: "Ad 4: Family Joy & Large Gallons 👨‍👩‍👧‍👦🎉",
+                desc_ar: "إعلان عائلي رائع يبرز عبوات الجيلاتو 3 لتر للمشاركة في الحفلات والتجمعات.",
+                desc_en: "Fun family commercial highlighting 3L family gallons for gatherings and parties.",
+                fileName: "ad-4.mp4",
+                videoPath: "videos/ad-4.mp4",
+                themeClass: "bg-theme-4",
+                badge_ar: "إعلان 4 🎉",
+                badge_en: "Promo 4 🎉"
+            },
+            {
+                id: 5,
+                title_ar: "إعلان 5: ابتكار الجيلاتو وتجربة دبي الملكية 👑🍦",
+                title_en: "Ad 5: Dubai Royal Gelato Innovation 👑🍦",
+                desc_ar: "إعلان سينمائي فاخر لمنتج دبي بستاشيو والخلطات الملكية المبتكرة.",
+                desc_en: "Cinematic commercial for Dubai Pistachio and royal innovative flavor mixes.",
+                fileName: "ad-5.mp4",
+                videoPath: "videos/ad-5.mp4",
+                themeClass: "bg-theme-5",
+                badge_ar: "إعلان 5 👑",
+                badge_en: "Promo 5 👑"
+            }
+        ];
+
+        // ===== Render Cards =====
+        const grid = document.getElementById('videoAdGrid');
+
+        function renderAdCards() {
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const btnText = translations[currentLang]?.playAd || 'شاهد الإعلان 🎬';
+
+            adsData.forEach((ad, index) => {
+                const title = currentLang === 'ar' ? ad.title_ar : ad.title_en;
+                const desc = currentLang === 'ar' ? ad.desc_ar : ad.desc_en;
+                const badge = currentLang === 'ar' ? ad.badge_ar : ad.badge_en;
+
+                const card = document.createElement('div');
+                card.className = 'ad-card';
+                card.innerHTML = `
+                    <div class="ad-card-badge">
+                        <i class="fas fa-bolt"></i> ${badge}
+                    </div>
+
+                    <div class="ad-video-wrapper">
+                        <div class="ad-video-bg ${ad.themeClass}"></div>
+                        <video class="ad-video-element" preload="metadata" muted playsinline loop>
+                            <source src="${ad.videoPath}" type="video/mp4">
+                        </video>
+                        <div class="ad-video-overlay" data-index="${index}">
+                            <div class="play-ad-btn">
+                                <i class="fas fa-play"></i>
+                            </div>
+                            <span class="play-ad-text">${btnText}</span>
+                        </div>
+                    </div>
+
+                    <div class="ad-card-body">
+                        <h3 class="ad-title">${title}</h3>
+                        <p class="ad-desc">${desc}</p>
+                        <div class="ad-card-actions">
+                            <button class="btn-watch-ad" data-index="${index}">
+                                <i class="fas fa-play-circle"></i> ${btnText}
+                            </button>
+                            <div class="btn-ad-file-info">
+                                <i class="fas fa-file-video"></i> ${ad.fileName}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            attachEvents();
+        }
+
+        // ===== Lightbox =====
+        const lightbox = document.getElementById('videoLightbox');
+        const lightboxVideo = document.getElementById('lightboxVideo');
+        const lightboxTitle = document.getElementById('lightboxTitle');
+        const lightboxDesc = document.getElementById('lightboxDesc');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxBackdrop = document.getElementById('lightboxBackdrop');
+
+        function openLightbox(index) {
+            const ad = adsData[index];
+            if (!ad || !lightbox || !lightboxVideo) return;
+            
+            const source = lightboxVideo.querySelector('source');
+            source.src = ad.videoPath;
+            lightboxVideo.load();
+            lightboxVideo.play().catch(e => console.log('Autoplay handled:', e));
+
+            if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
+            if (lightboxDesc) lightboxDesc.textContent = currentLang === 'ar' ? ad.desc_ar : ad.desc_en;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            if (!lightbox || !lightboxVideo) return;
+            lightbox.classList.remove('active');
+            lightboxVideo.pause();
+            lightboxVideo.currentTime = 0;
+            document.body.style.overflow = '';
+        }
+
+        if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+        if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        function attachEvents() {
+            document.querySelectorAll('.ad-video-overlay, .btn-watch-ad').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const index = parseInt(el.getAttribute('data-index'));
+                    openLightbox(index);
+                });
+            });
+        }
+
+        // Init
+        applyLanguage(currentLang);
+        renderAdCards();
+    });
+    </script>
+    <!-- ====== Falling Snow & Ice Crystals Canvas Layer ====== -->
+    <canvas id="snowCanvas" class="snow-canvas"></canvas>
+
+    <!-- ====== Floating Snowfall Toggle Button ====== -->
+    <button id="floatingSnowBtn" class="floating-snow-btn active" aria-label="تشغيل/إيقاف تساقط الثلج" title="تشغيل/إيقاف الثلج">
+        <div class="floating-snow-icon">
+            <i class="fas fa-snowflake"></i>
+        </div>
+        <span class="floating-snow-label" data-i18n="snowEffect">تساقط الثلج ❄️</span>
+    </button>
+
+    <script src="script.js?v=20260906"></script>
+</body>
+</html>

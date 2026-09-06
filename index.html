@@ -77,7 +77,7 @@
                     <li><a href="#home" data-i18n="home">الرئيسية</a></li>
                     <li class="flavors-btn">
                         <span data-i18n="products">النكهات</span>
-                        <i class="fas fa-chevron-down" style="font-size: 0.8rem; margin-right: 5px;"></i>
+                        <i class="fas fa-chevron-down" style="font-size: 0.8rem;"></i>
                         <ul class="flavors-dropdown">
                             <li class="filter-option" data-filter="chocolate" data-i18n="filterChocolate">شيكولاته</li>
                             <li class="filter-option" data-filter="milk" data-i18n="filterMilk">حليب</li>
@@ -86,6 +86,7 @@
                             <li class="filter-option" data-filter="strawberry" data-i18n="filterStrawberry">فراولة</li>
                         </ul>
                     </li>
+                    <li><a href="videos.html" data-i18n="videos">🎬 الفيديوهات</a></li>
                     <li><a href="#contact" data-i18n="contact">التواصل</a></li>
                 </ul>
             </nav>
@@ -137,6 +138,17 @@
             </div>
         </div>
     </section>
+
+    <!-- ====== Falling Snow & Ice Crystals Canvas Layer ====== -->
+    <canvas id="snowCanvas" class="snow-canvas"></canvas>
+
+    <!-- ====== Floating Snowfall Toggle Button ====== -->
+    <button id="floatingSnowBtn" class="floating-snow-btn active" aria-label="تشغيل/إيقاف تساقط الثلج" title="تشغيل/إيقاف الثلج">
+        <div class="floating-snow-icon">
+            <i class="fas fa-snowflake"></i>
+        </div>
+        <span class="floating-snow-label" data-i18n="snowEffect">تساقط الثلج ❄️</span>
+    </button>
 
     <footer id="contact">
         <div class="container footer-grid">

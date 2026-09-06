@@ -551,6 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
             featQuality: "مكونات إيطالية فاخرة",
             featPayment: "الدفع عند الاستلام",
             filterAll: "الكل",
+            videos: "🎬 الفيديوهات",
             filterStick: "استيك",
             filterCone: "كونو وبسكويتة",
             filterCup: "عائلي وكب",
@@ -579,7 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
             footerAboutText: "أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض الخاصة. زورونا اليوم",
             footerRights: "&copy; 2026 Gelato Happiness. جميع الحقوق محفوظة",
             orderSuccessTitle: "تم استلام طلبك بنجاح!",
-            orderSuccessMsg: "شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه."
+            orderSuccessMsg: "شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه.",
+            snowEffect: "تأثير الثلج ❄️"
         },
         en: {
             home: "Home",
@@ -631,6 +633,7 @@ document.addEventListener('DOMContentLoaded', () => {
             featQuality: "Premium Ingredients",
             featPayment: "Cash on Delivery",
             filterAll: "All",
+            videos: "🎬 Videos",
             filterStick: "Stick",
             filterCone: "Cone & Biscuit",
             filterCup: "Cup & Family",
@@ -659,7 +662,8 @@ document.addEventListener('DOMContentLoaded', () => {
             footerAboutText: "Best ice cream shop in town. We offer a wide variety of<br>flavors and special offers. Visit us today",
             footerRights: "&copy; 2026 Gelato Happiness. All rights reserved",
             orderSuccessTitle: "Order Received Successfully!",
-            orderSuccessMsg: "Thank you for shopping with us. We will contact you soon to confirm and ship your order."
+            orderSuccessMsg: "Thank you for shopping with us. We will contact you soon to confirm and ship your order.",
+            snowEffect: "Snowfall Effect ❄️"
         },
     };
     // دالة لتطبيق اللغة المختارة على الصفحة
@@ -740,6 +744,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (cartCount) cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const fridgeCartCount = document.getElementById('fridgeCartCount');
+        if (fridgeCartCount) fridgeCartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
         localStorage.setItem('cart', JSON.stringify(cart));
 
         // إذا كنا في صفحة الدفع، نقوم بتحديث ملخص الطلب أيضاً
@@ -1432,7 +1438,150 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ===== Gelato Falling Snow & Ice Crystals Feature =====
+    function initSnowfallFeature() {
+        const canvas = document.getElementById('snowCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        const snowToggleBtn = document.getElementById('snowToggleBtn');
+        const floatingSnowBtn = document.getElementById('floatingSnowBtn');
+
+        let isSnowing = localStorage.getItem('snowEffect') !== 'disabled';
+        let animationFrameId = null;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const numParticles = Math.min(Math.floor(window.innerWidth / 14), 75);
+        const particles = [];
+
+        for (let i = 0; i < numParticles; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 3.5 + 1.2,
+                speedY: Math.random() * 1.6 + 0.5,
+                speedX: Math.random() * 0.8 - 0.4,
+                opacity: Math.random() * 0.75 + 0.25,
+                type: Math.random() > 0.55 ? 'flake' : 'dot',
+                rotation: Math.random() * Math.PI * 2,
+                spinSpeed: (Math.random() - 0.5) * 0.02
+            });
+        }
+
+        function drawFlake(x, y, radius, opacity, rotation, isDark) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.rotate(rotation);
+            ctx.strokeStyle = isDark
+                ? `rgba(255, 255, 255, ${opacity})`
+                : `rgba(2, 132, 199, ${Math.min(opacity + 0.25, 0.95)})`;
+            ctx.lineWidth = isDark ? 1.3 : 1.7;
+
+            if (!isDark) {
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = "rgba(56, 189, 248, 0.65)";
+            }
+
+            // Draw 6-arm ice snowflake
+            for (let i = 0; i < 6; i++) {
+                ctx.beginPath();
+                ctx.moveTo(0, 0);
+                ctx.lineTo(0, -radius * 2.2);
+                ctx.stroke();
+
+                ctx.beginPath();
+                ctx.moveTo(0, -radius * 1.2);
+                ctx.lineTo(radius * 0.7, -radius * 1.7);
+                ctx.moveTo(0, -radius * 1.2);
+                ctx.lineTo(-radius * 0.7, -radius * 1.7);
+                ctx.stroke();
+
+                ctx.rotate(Math.PI / 3);
+            }
+            ctx.restore();
+        }
+
+        function renderSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            if (!isSnowing) return;
+
+            const isDark = document.body.classList.contains('dark-mode');
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                if (p.type === 'flake') {
+                    drawFlake(p.x, p.y, p.radius, p.opacity, p.rotation, isDark);
+                    p.rotation += p.spinSpeed;
+                } else {
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = isDark
+                        ? `rgba(224, 242, 254, ${p.opacity})`
+                        : `rgba(14, 165, 233, ${Math.min(p.opacity + 0.25, 0.9)})`;
+                    ctx.shadowBlur = isDark ? 8 : 6;
+                    ctx.shadowColor = isDark ? "rgba(56, 189, 248, 0.8)" : "rgba(2, 132, 199, 0.6)";
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
+                }
+
+                p.y += p.speedY;
+                p.x += Math.sin(p.y * 0.012) * p.speedX;
+
+                // Reset particle to top when it reaches bottom
+                if (p.y > canvas.height + 15) {
+                    p.y = -15;
+                    p.x = Math.random() * canvas.width;
+                }
+                if (p.x > canvas.width + 10) p.x = -10;
+                if (p.x < -10) p.x = canvas.width + 10;
+            }
+
+            animationFrameId = requestAnimationFrame(renderSnow);
+        }
+
+        function updateUIState() {
+            if (isSnowing) {
+                canvas.classList.remove('disabled');
+                if (snowToggleBtn) snowToggleBtn.classList.remove('disabled');
+                if (floatingSnowBtn) floatingSnowBtn.classList.remove('disabled');
+                if (!animationFrameId) renderSnow();
+            } else {
+                canvas.classList.add('disabled');
+                if (snowToggleBtn) snowToggleBtn.classList.add('disabled');
+                if (floatingSnowBtn) floatingSnowBtn.classList.add('disabled');
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function toggleSnow() {
+            isSnowing = !isSnowing;
+            localStorage.setItem('snowEffect', isSnowing ? 'enabled' : 'disabled');
+            updateUIState();
+        }
+
+        if (snowToggleBtn) snowToggleBtn.addEventListener('click', toggleSnow);
+        if (floatingSnowBtn) floatingSnowBtn.addEventListener('click', toggleSnow);
+
+        updateUIState();
+    }
+
     applyLanguage(currentLang);
+
+    // تهيئة تأثير تساقط الثلج الجليدي من الأعلى
+    initSnowfallFeature();
 
     // تهيئة الصفحة عند التحميل
     displayProducts();
