@@ -1536,7 +1536,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 p.y += p.speedY;
                 p.x += Math.sin(p.y * 0.012) * p.speedX;
 
-                // Reset particle to top when it reaches bottom
+                // Reset particle to top when it reaches the bottom of the page
                 if (p.y > canvas.height + 15) {
                     p.y = -15;
                     p.x = Math.random() * canvas.width;
@@ -1574,6 +1574,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (snowToggleBtn) snowToggleBtn.addEventListener('click', toggleSnow);
         if (floatingSnowBtn) floatingSnowBtn.addEventListener('click', toggleSnow);
+
+        // Dynamic position adjustment for floating snow button so it stops above footer (doesn't cover Mohamed Rageh credit)
+        function adjustFloatingBtnPosition() {
+            if (!floatingSnowBtn) return;
+            const footerEl = document.querySelector('footer, .footer-bottom');
+            if (!footerEl) return;
+
+            const footerRect = footerEl.getBoundingClientRect();
+            const windowHeight = window.innerHeight;
+
+            if (footerRect.top < windowHeight) {
+                const overlap = windowHeight - footerRect.top;
+                floatingSnowBtn.style.bottom = `${20 + overlap}px`;
+            } else {
+                floatingSnowBtn.style.bottom = '25px';
+            }
+        }
+
+        window.addEventListener('scroll', adjustFloatingBtnPosition, { passive: true });
+        window.addEventListener('resize', adjustFloatingBtnPosition, { passive: true });
+        adjustFloatingBtnPosition();
 
         updateUIState();
     }
