@@ -101,6 +101,10 @@
                 <div class="checkout-form-area">
                     <h3 data-i18n="shippingAddress">عنوان التوصيل</h3>
                     <form id="checkoutForm" class="checkout-form">
+                        <!-- Honeypot Field for Anti-Bot Spam Protection -->
+                        <div style="display:none !important; visibility:hidden; opacity:0; position:absolute; left:-9999px;" aria-hidden="true">
+                            <input type="text" id="website_hp_confirm" name="website_hp_confirm" tabindex="-1" autocomplete="off">
+                        </div>
                         <div class="form-group">
                             <label data-i18n="emailLabel">البريد الإلكتروني (اختياري)</label>
                             <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني (اختياري)"

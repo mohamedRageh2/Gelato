@@ -1,25 +1,3 @@
-/**
- * Gelato E-Commerce Protection Bundle v2.0
- * Protected & Obfuscated Production Script
- * Copyright (c) 2026 Gelato. All rights reserved.
- */
-var _0x4d9a = ['\x73\x63\x72\x69\x70\x74', '\x63\x6f\x6e\x74\x65\x78\x74\x6d\x65\x6e\x75', '\x6b\x65\x79\x64\x6f\x77\x6e', '\x64\x65\x62\x75\x67\x67\x65\x72', '\x6c\x6f\x63\x61\x6c\x53\x74\x6f\x72\x61\x67\x65'];
-(function (_0x2b3e4f, _0x1c8901) {
-    var _0x5f210d = function (_0x3a4f1a) {
-        while (--_0x3a4f1a) {
-            _0x2b3e4f['push'](_0x2b3e4f['shift']());
-        }
-    };
-    _0x5f210d(++_0x1c8901);
-}(_0x4d9a, 0x1a4));
-
-// Anti-Debugger Security Trap
-setInterval(function () {
-    (function () {
-        return false;
-    })['constructor']('debugger')['call']('action');
-}, 4000);
-
 // ===== Helper Function for XSS Protection & HTML Sanitization =====
 function escapeHTML(str) {
     if (typeof str !== 'string') return str;
