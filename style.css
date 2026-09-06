@@ -749,6 +749,26 @@ footer {
 .social-icon:hover {
     transform: translateY(-3px);
     background-color: #fff;
+    color: #0284c7;
+}
+
+button.snow-social-btn {
+    border: none;
+    cursor: pointer;
+    background-color: #38bdf8;
+    color: #ffffff;
+    outline: none;
+}
+
+button.snow-social-btn:hover {
+    transform: translateY(-3px) rotate(15deg);
+    background-color: #0284c7;
+    color: #ffffff;
+}
+
+button.snow-social-btn.disabled {
+    background-color: #64748b;
+    opacity: 0.5;
 }
 
 .footer-links h4 {
@@ -943,11 +963,17 @@ footer {
     }
 
     header nav ul {
-        justify-content: center;
-        flex-wrap: wrap; /* Allows "Contact" and other links to wrap instead of disappearing */
-        gap: 8px;
+        justify-content: flex-start !important;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        gap: 5px !important;
         width: 100%;
-        overflow: visible;
+        padding-bottom: 4px;
+        scrollbar-width: none;
+    }
+    header nav ul::-webkit-scrollbar {
+        display: none;
     }
 
     header nav > ul > li {
@@ -956,9 +982,9 @@ footer {
     }
 
     header nav > ul > li > a, .categories-btn, .flavors-btn {
-        font-size: 0.85rem !important;
-        padding: 4px 8px !important;
-        white-space: nowrap;
+        font-size: 0.78rem !important;
+        padding: 4px 6px !important;
+        white-space: nowrap !important;
     }
 
     .hero-section {
