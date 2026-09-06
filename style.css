@@ -2347,6 +2347,23 @@ body.dark-mode .designer-credit {
     font-size: 0.95rem;
 }
 
+@media (max-width: 768px) {
+    .floating-snow-btn {
+        bottom: 15px;
+        left: 15px;
+        padding: 5px 12px 5px 8px;
+        gap: 6px;
+    }
+    .floating-snow-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 0.9rem;
+    }
+    .floating-snow-label {
+        font-size: 0.82rem;
+    }
+}
+
 /* Main Refrigerator Outer Shell - Full Viewport Curtain Dropdown */
 .fridge-wrapper {
     position: fixed;

@@ -1575,20 +1575,24 @@ document.addEventListener('DOMContentLoaded', () => {
         if (snowToggleBtn) snowToggleBtn.addEventListener('click', toggleSnow);
         if (floatingSnowBtn) floatingSnowBtn.addEventListener('click', toggleSnow);
 
-        // Dynamic position adjustment for floating snow button so it stops above footer (doesn't cover Mohamed Rageh credit)
+        // Dynamic position adjustment for floating snow button so it stops EXACTLY at social icons level (doesn't block products)
         function adjustFloatingBtnPosition() {
             if (!floatingSnowBtn) return;
-            const footerEl = document.querySelector('footer, .footer-bottom');
-            if (!footerEl) return;
+            const targetEl = document.querySelector('.footer-social, .footer-bottom-container, .footer-bottom');
+            if (!targetEl) return;
 
-            const footerRect = footerEl.getBoundingClientRect();
+            const rect = targetEl.getBoundingClientRect();
             const windowHeight = window.innerHeight;
+            const isMobile = window.innerWidth <= 768;
+            const baseBottom = isMobile ? 15 : 25;
+            const maxRise = isMobile ? 35 : 50;
 
-            if (footerRect.top < windowHeight) {
-                const overlap = windowHeight - footerRect.top;
-                floatingSnowBtn.style.bottom = `${20 + overlap}px`;
+            if (rect.top < windowHeight - 15) {
+                const overlap = windowHeight - 15 - rect.top;
+                const rise = Math.min(Math.max(0, overlap), maxRise);
+                floatingSnowBtn.style.bottom = `${baseBottom + rise}px`;
             } else {
-                floatingSnowBtn.style.bottom = '25px';
+                floatingSnowBtn.style.bottom = `${baseBottom}px`;
             }
         }
 
