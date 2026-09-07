@@ -61,6 +61,7 @@ function escapeHTML(str) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const productGrid = document.querySelector('.product-grid');
+    const searchInput = document.getElementById('searchInput');
     const cartIcon = document.querySelector('.cart-icon');
     const cartCount = document.querySelector('.cart-count');
     const cartModal = document.querySelector('.cart-modal');
@@ -78,7 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (savedDarkMode === 'enabled') {
         document.body.classList.add('dark-mode');
         if (darkModeToggle) {
-            darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+            const icon = darkModeToggle.querySelector('i');
+            if (icon) icon.classList.replace('fa-moon', 'fa-sun');
         }
     }
 
@@ -86,12 +88,14 @@ document.addEventListener('DOMContentLoaded', () => {
         darkModeToggle.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
             const icon = darkModeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-mode')) {
-                icon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                icon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('darkMode', 'disabled');
+            if (icon) {
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                    localStorage.setItem('darkMode', 'disabled');
+                }
             }
         });
     }
@@ -641,10 +645,17 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "علبة",
             footerSandwich: "سندوتش",
             footerAboutText: "أفضل محل آيس كريم في المدينة. نقدم تشكيلة واسعة من<br>النكهات والعروض الخاصة. زورونا اليوم",
-            footerRights: "&copy; 2026 Gelato Happiness. جميع الحقوق محفوظة",
+            footerRights: "&copy; 2026 المدينة المنورة. جميع الحقوق محفوظة",
             orderSuccessTitle: "تم استلام طلبك بنجاح!",
             orderSuccessMsg: "شكراً لتسوقك معنا. سنقوم بالتواصل معك قريباً لتأكيد الطلب وشحنه.",
-            snowEffect: "تأثير الثلج ❄️"
+            snowEffect: "تأثير الثلج ❄️",
+            backToHome: "العودة للمتجر",
+            adBadge: "معرض الإعلانات التجاريّة",
+            adTitle: "إعلانات المدينة المنورة التشويقية 🎬🍦",
+            adSub: "شاهد أحدث الإعلانات والعروض الترويجية الحصرية لمنتجات آيس كريم المدينة المنورة!",
+            adNotice: "💡 ضع الفيديوهات في مجلد <code>videos/</code> بالأسماء (<code>ad-1.mp4</code> إلى <code>ad-5.mp4</code>) لتظهر وتعمل فوراً!",
+            playAd: "شاهد الإعلان 🎬",
+            adBadgeLabel: "إعلان حصري 🌟"
         },
         en: {
             home: "Home",
@@ -723,10 +734,17 @@ document.addEventListener('DOMContentLoaded', () => {
             footerBox: "Box",
             footerSandwich: "Sandwich",
             footerAboutText: "Best ice cream shop in town. We offer a wide variety of<br>flavors and special offers. Visit us today",
-            footerRights: "&copy; 2026 Gelato Happiness. All rights reserved",
+            footerRights: "&copy; 2026 Al Madinah Al Munawwarah. All rights reserved",
             orderSuccessTitle: "Order Received Successfully!",
             orderSuccessMsg: "Thank you for shopping with us. We will contact you soon to confirm and ship your order.",
-            snowEffect: "Snowfall Effect ❄️"
+            snowEffect: "Snowfall Effect ❄️",
+            backToHome: "Back to Shop",
+            adBadge: "Commercial Ads Showcase",
+            adTitle: "Al Madinah Al Munawwarah Promo Showcase 🎬🍦",
+            adSub: "Watch our latest exclusive ads and commercials for Al Madinah Al Munawwarah ice cream products!",
+            adNotice: "💡 Place video files in <code>videos/</code> folder named (<code>ad-1.mp4</code> to <code>ad-5.mp4</code>) to play automatically!",
+            playAd: "Watch Commercial 🎬",
+            adBadgeLabel: "Exclusive Ad 🌟"
         },
     };
     // دالة لتطبيق اللغة المختارة على الصفحة
@@ -759,6 +777,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         localStorage.setItem("lang", lang);
+
+        if (typeof window.renderAdCards === 'function') {
+            window.renderAdCards(lang);
+        }
     }
 
     // دالة لتحديث عرض سلة التسوق
@@ -1370,8 +1392,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-    const searchInput = document.getElementById("searchInput");
 
     if (searchInput) {
         searchInput.addEventListener("input", () => {
