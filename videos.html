@@ -12,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css?v=20260906">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
     <style>
         :root {
             --video-card-bg: rgba(255, 255, 255, 0.85);
@@ -469,6 +470,26 @@
             object-fit: contain;
         }
 
+        /* Plyr Custom Brand Styling */
+        .plyr--video {
+            border-radius: 18px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            max-height: 75vh;
+            width: 100%;
+        }
+        .plyr--full-ui {
+            --plyr-color-main: #ec4899;
+            --plyr-video-control-color: #ffffff;
+            --plyr-video-control-color-hover: #f472b6;
+        }
+        .plyr__control--overlaid {
+            background: linear-gradient(135deg, #e6007e, #9333ea) !important;
+            padding: 22px !important;
+            border-radius: 50% !important;
+            box-shadow: 0 10px 30px rgba(230, 0, 126, 0.6) !important;
+        }
+
         .lightbox-info {
             padding: 20px 25px;
             color: #ffffff;
@@ -696,39 +717,52 @@
         const lightboxClose = document.getElementById('lightboxClose');
         const lightboxBackdrop = document.getElementById('lightboxBackdrop');
 
+        // Initialize Plyr player instance
+        let plyrPlayer = null;
+        if (typeof Plyr !== 'undefined' && lightboxVideo) {
+            plyrPlayer = new Plyr(lightboxVideo, {
+                controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+                autoplay: true,
+                hideControls: false,
+                resetOnEnd: true
+            });
+        }
+
         function openLightbox(index) {
             const ad = adsData[index];
             if (!ad || !lightbox || !lightboxVideo) return;
             
             const currentLang = localStorage.getItem('lang') || 'ar';
 
-            // Pause all card video previews
-            document.querySelectorAll('.ad-video-element').forEach(v => v.pause());
-
-            lightboxVideo.src = ad.videoPath;
-            lightboxVideo.currentTime = 0;
-            lightboxVideo.load();
-            
             if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
             if (lightboxDesc) lightboxDesc.textContent = currentLang === 'ar' ? ad.desc_ar : ad.desc_en;
 
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            const playPromise = lightboxVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => {
-                    console.log('Mobile Autoplay Audio Policy:', e);
-                });
+            if (plyrPlayer) {
+                plyrPlayer.source = {
+                    type: 'video',
+                    sources: [{ src: ad.videoPath, type: 'video/mp4' }]
+                };
+                plyrPlayer.play();
+            } else {
+                lightboxVideo.src = ad.videoPath;
+                lightboxVideo.currentTime = 0;
+                lightboxVideo.load();
+                lightboxVideo.play().catch(e => console.log(e));
             }
         }
 
         function closeLightbox() {
             if (!lightbox || !lightboxVideo) return;
             lightbox.classList.remove('active');
-            lightboxVideo.pause();
-            lightboxVideo.removeAttribute('src');
-            lightboxVideo.load();
+            if (plyrPlayer) {
+                plyrPlayer.stop();
+            } else {
+                lightboxVideo.pause();
+                lightboxVideo.removeAttribute('src');
+            }
             document.body.style.overflow = '';
         }
 
@@ -754,6 +788,7 @@
     <!-- ====== Falling Snow & Ice Crystals Canvas Layer ====== -->
     <canvas id="snowCanvas" class="snow-canvas"></canvas>
 
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script src="script.js?v=20260906"></script>
 </body>
 </html>
