@@ -658,9 +658,7 @@
 
                     <div class="ad-video-wrapper">
                         <div class="ad-video-bg ${ad.themeClass}"></div>
-                        <video class="ad-video-element" preload="metadata" muted playsinline loop>
-                            <source src="${ad.videoPath}" type="video/mp4">
-                        </video>
+                        <video class="ad-video-element" src="${ad.videoPath}" preload="metadata" muted playsinline loop></video>
                         <div class="ad-video-overlay" data-index="${index}">
                             <div class="play-ad-btn">
                                 <i class="fas fa-play"></i>
@@ -703,10 +701,17 @@
             if (!ad || !lightbox || !lightboxVideo) return;
             
             const currentLang = localStorage.getItem('lang') || 'ar';
-            const source = lightboxVideo.querySelector('source');
-            source.src = ad.videoPath;
+
+            // Pause all card video previews
+            document.querySelectorAll('.ad-video-element').forEach(v => v.pause());
+
+            // Direct src setting ensures cross-browser streaming without 1-sec freeze
+            lightboxVideo.src = ad.videoPath;
             lightboxVideo.load();
-            lightboxVideo.play().catch(e => console.log('Autoplay handled:', e));
+            const playPromise = lightboxVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => console.log('Autoplay policy:', e));
+            }
 
             if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
             if (lightboxDesc) lightboxDesc.textContent = currentLang === 'ar' ? ad.desc_ar : ad.desc_en;
@@ -719,7 +724,8 @@
             if (!lightbox || !lightboxVideo) return;
             lightbox.classList.remove('active');
             lightboxVideo.pause();
-            lightboxVideo.currentTime = 0;
+            lightboxVideo.removeAttribute('src');
+            lightboxVideo.load();
             document.body.style.overflow = '';
         }
 
@@ -732,11 +738,11 @@
                 const videoEl = card.querySelector('.ad-video-element');
                 if (videoEl) {
                     card.addEventListener('mouseenter', () => {
+                        videoEl.muted = true;
                         videoEl.play().catch(() => {});
                     });
                     card.addEventListener('mouseleave', () => {
                         videoEl.pause();
-                        videoEl.currentTime = 0;
                     });
                 }
             });
