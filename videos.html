@@ -546,8 +546,7 @@
         <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
         <div class="lightbox-content">
             <button class="lightbox-close" id="lightboxClose">&times;</button>
-            <video class="lightbox-video-player" id="lightboxVideo" controls playsinline autoplay>
-                <source src="" type="video/mp4">
+            <video class="lightbox-video-player" id="lightboxVideo" controls playsinline preload="auto">
                 متصفحك لا يدعم تشغيل الفيديو.
             </video>
             <div class="lightbox-info">
@@ -658,7 +657,7 @@
 
                     <div class="ad-video-wrapper">
                         <div class="ad-video-bg ${ad.themeClass}"></div>
-                        <video class="ad-video-element" src="${ad.videoPath}" preload="metadata" muted playsinline loop></video>
+                        <video class="ad-video-element" src="${ad.videoPath}" controls preload="auto" muted playsinline loop></video>
                         <div class="ad-video-overlay" data-index="${index}">
                             <div class="play-ad-btn">
                                 <i class="fas fa-play"></i>
