@@ -546,7 +546,7 @@
         <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
         <div class="lightbox-content">
             <button class="lightbox-close" id="lightboxClose">&times;</button>
-            <video class="lightbox-video-player" id="lightboxVideo" controls playsinline preload="auto">
+            <video class="lightbox-video-player" id="lightboxVideo" controls playsinline webkit-playsinline x5-playsinline preload="auto">
                 متصفحك لا يدعم تشغيل الفيديو.
             </video>
             <div class="lightbox-info">
@@ -704,19 +704,22 @@
             // Pause all card video previews
             document.querySelectorAll('.ad-video-element').forEach(v => v.pause());
 
-            // Direct src setting ensures cross-browser streaming without 1-sec freeze
             lightboxVideo.src = ad.videoPath;
+            lightboxVideo.currentTime = 0;
             lightboxVideo.load();
-            const playPromise = lightboxVideo.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(e => console.log('Autoplay policy:', e));
-            }
-
+            
             if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
             if (lightboxDesc) lightboxDesc.textContent = currentLang === 'ar' ? ad.desc_ar : ad.desc_en;
 
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
+
+            const playPromise = lightboxVideo.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(e => {
+                    console.log('Mobile Autoplay Audio Policy:', e);
+                });
+            }
         }
 
         function closeLightbox() {
