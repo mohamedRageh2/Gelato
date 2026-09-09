@@ -650,6 +650,7 @@
 
                 const card = document.createElement('div');
                 card.className = 'ad-card';
+                // Lazy loading: video tag has NO src — loaded only when user clicks
                 card.innerHTML = `
                     <div class="ad-card-badge">
                         <i class="fas fa-bolt"></i> ${badge}
@@ -657,8 +658,7 @@
 
                     <div class="ad-video-wrapper">
                         <div class="ad-video-bg ${ad.themeClass}"></div>
-                        <video class="ad-video-element" src="${ad.videoPath}" controls preload="auto" muted playsinline loop></video>
-                        <div class="ad-video-overlay" data-index="${index}">
+                        <div class="ad-video-overlay" data-index="${index}" data-src="${ad.videoPath}">
                             <div class="play-ad-btn">
                                 <i class="fas fa-play"></i>
                             </div>
@@ -733,19 +733,7 @@
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 
         function attachEvents() {
-            document.querySelectorAll('.ad-card').forEach((card) => {
-                const videoEl = card.querySelector('.ad-video-element');
-                if (videoEl) {
-                    card.addEventListener('mouseenter', () => {
-                        videoEl.muted = true;
-                        videoEl.play().catch(() => {});
-                    });
-                    card.addEventListener('mouseleave', () => {
-                        videoEl.pause();
-                    });
-                }
-            });
-
+            // Lazy loading: only open lightbox on click — no preloading on card hover
             document.querySelectorAll('.ad-video-overlay, .btn-watch-ad').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
