@@ -287,6 +287,43 @@
             max-height: 520px;
         }
 
+        /* Expand / Fullscreen button on embed cards */
+        .btn-expand-embed {
+            position: absolute;
+            bottom: 12px;
+            left: 12px;
+            z-index: 10;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(15, 23, 42, 0.75);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            color: #ffffff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(6px);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+        }
+        .btn-expand-embed:hover {
+            background: linear-gradient(135deg, #e6007e, #9333ea);
+            border-color: transparent;
+            transform: scale(1.12);
+            box-shadow: 0 6px 20px rgba(230,0,126,0.5);
+        }
+
+        /* Portrait lightbox (for 9:16 Streamable videos) */
+        .lightbox-content--portrait {
+            max-width: 420px !important;
+        }
+        .lightbox-content--portrait .lightbox-iframe-player {
+            height: 75vh;
+            min-height: 500px;
+        }
+
         /* Placeholder Play Button overlay */
         .ad-video-overlay {
             position: absolute;
@@ -704,6 +741,7 @@
                 card.className = 'ad-card';
 
                 // If ad has a Streamable embed URL, show it inline in the card
+                const expandText = currentLang === 'en' ? 'Expand' : 'تكبير';
                 const videoSection = ad.embedUrl
                     ? `<div class="ad-video-wrapper ad-video-wrapper--portrait">
                         <iframe allow="fullscreen" allowfullscreen
@@ -711,6 +749,9 @@
                             style="border:none; position:absolute; inset:0; width:100%; height:100%; z-index:2;"
                             loading="lazy">
                         </iframe>
+                        <button class="btn-expand-embed" data-index="${index}" title="${expandText}">
+                            <i class="fas fa-expand"></i>
+                        </button>
                     </div>`
                     : `<div class="ad-video-wrapper">
                         <div class="ad-video-bg ${ad.themeClass}"></div>
@@ -837,6 +878,8 @@
         function closeLightbox() {
             if (!lightbox) return;
             lightbox.classList.remove('active');
+            // Remove portrait modifier if present
+            document.querySelector('.lightbox-content').classList.remove('lightbox-content--portrait');
             if (lightboxIframe) {
                 lightboxIframe.src = '';
                 lightboxIframe.style.display = 'none';
@@ -877,6 +920,32 @@
                     e.stopPropagation();
                     const index = parseInt(el.getAttribute('data-index'));
                     openLightbox(index);
+                });
+            });
+
+            // Expand button on Streamable embed cards → open in portrait lightbox
+            document.querySelectorAll('.btn-expand-embed').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const index = parseInt(btn.getAttribute('data-index'));
+                    const ad = adsData[index];
+                    if (!ad || !lightbox) return;
+
+                    const currentLang = localStorage.getItem('lang') || 'ar';
+                    if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
+                    if (lightboxDesc)  lightboxDesc.textContent  = currentLang === 'ar' ? ad.desc_ar  : ad.desc_en;
+
+                    // Show iframe in portrait lightbox
+                    if (lightboxVideo) lightboxVideo.style.display = 'none';
+                    lightboxIframe.style.display = 'block';
+                    lightboxIframe.src = ad.embedUrl;
+
+                    // Add portrait class to shrink lightbox width
+                    document.querySelector('.lightbox-content').classList.add('lightbox-content--portrait');
+
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
                 });
             });
         }
