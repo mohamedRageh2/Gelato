@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>معرض الإعلانات والفيديوهات - المدينة المنورة</title>
     <meta name="description" content="شاهد إعلانات منتجات جيلاتو الفاخرة والعروض التشويقية الحصرية">
     <link rel="icon" type="image/png" href="img/download (1).png">
@@ -600,7 +603,7 @@
                 desc_ar: "تجربة سينمائية تسلط الضوء على سحر الشيكولاته البلجيكية الفاخرة والقوام الكريمي الغني باللذة.",
                 desc_en: "A cinematic commercial showcasing rich Belgian dark chocolate and ultra-creamy gelato perfection.",
                 fileName: "ad-1.mp4",
-                videoPath: "videos/ad-1.mp4?v=2",
+                videoPath: "videos/ad-1.mp4?v=3",
                 themeClass: "bg-theme-1",
                 badge_ar: "إعلان 1 🍫",
                 badge_en: "Promo 1 🍫"
@@ -612,7 +615,7 @@
                 desc_ar: "عرض ترويجي منعش يجسد أجواء الصيف الممتعة وطعم آيس كريم جيلاتو المنعش الفريد.",
                 desc_en: "Refreshing teaser capturing joyous summer moments and delicious natural gelato flavors.",
                 fileName: "ad-2.mp4",
-                videoPath: "videos/ad-2.mp4?v=2",
+                videoPath: "videos/ad-2.mp4?v=3",
                 themeClass: "bg-theme-2",
                 badge_ar: "إعلان 2 🌴",
                 badge_en: "Promo 2 🌴"
@@ -769,6 +772,17 @@
         if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
         if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+        // Handle screen lock / phone sleep mode (Page Visibility API)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (plyrPlayer) {
+                    plyrPlayer.pause();
+                } else if (lightboxVideo) {
+                    lightboxVideo.pause();
+                }
+            }
+        });
 
         function attachEvents() {
             // Lazy loading: only open lightbox on click — no preloading on card hover
