@@ -287,6 +287,12 @@
             max-height: 520px;
         }
 
+        /* Square override for Streamable embeds (1:1) */
+        .ad-video-wrapper--square {
+            aspect-ratio: 1 / 1;
+            max-height: 480px;
+        }
+
         /* Expand / Fullscreen button on embed cards */
         .btn-expand-embed {
             position: absolute;
@@ -315,13 +321,52 @@
             box-shadow: 0 6px 20px rgba(230,0,126,0.5);
         }
 
-        /* Portrait lightbox (for 9:16 Streamable videos) */
+        /* ── Portrait lightbox (9:16) ── */
         .lightbox-content--portrait {
-            max-width: 420px !important;
+            max-width: 480px !important;
+        }
+        .lightbox-content--portrait .lightbox-player-wrapper {
+            aspect-ratio: 9 / 16;
+            height: 88vh;
+            width: auto !important;
+            max-width: 100%;
+            margin: 0 auto;
         }
         .lightbox-content--portrait .lightbox-iframe-player {
-            height: 75vh;
-            min-height: 500px;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-height: unset;
+        }
+
+        /* ── Square lightbox (1:1) ── */
+        .lightbox-content--square {
+            max-width: 560px !important;
+        }
+        .lightbox-content--square .lightbox-player-wrapper {
+            aspect-ratio: 1 / 1;
+            height: min(80vh, 560px);
+            width: auto !important;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .lightbox-content--square .lightbox-iframe-player {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            min-height: unset;
+        }
+
+        /* ── Default iframe (landscape local videos) ── */
+        .lightbox-iframe-player {
+            width: 100%;
+            height: 70vh;
+            min-height: 380px;
+            border: none;
+            display: block;
+            background: #000000;
         }
 
         /* Placeholder Play Button overlay */
@@ -517,14 +562,8 @@
             justify-content: center;
         }
 
-        .lightbox-iframe-player {
-            width: 100%;
-            height: 70vh;
-            min-height: 380px;
-            border: none;
-            display: block;
-            background: #000000;
-        }
+
+
 
         .lightbox-video-player {
             width: 100%;
@@ -662,63 +701,81 @@
         const adsData = [
             {
                 id: 1,
-                title_ar: "إعلان 1: سحر الشيكولاته وفخامة الجيلاتو 🍫✨",
-                title_en: "Ad 1: Belgian Chocolate Magic & Luxury 🍫✨",
-                desc_ar: "تجربة سينمائية تسلط الضوء على سحر الشيكولاته البلجيكية الفاخرة والقوام الكريمي الغني باللذة.",
-                desc_en: "A cinematic commercial showcasing rich Belgian dark chocolate and ultra-creamy gelato perfection.",
+                title_ar: "دبي معاك في كل رحله ✨",
+                title_en: "Dubai is with you on every journey ✨",
+                desc_ar: "",
+                desc_en: "",
                 fileName: "ad-1.mp4",
                 embedUrl: "https://streamable.com/e/e15lt0?",
+                embedRatio: "portrait",
                 themeClass: "bg-theme-1",
-                badge_ar: "إعلان 1 🍫",
-                badge_en: "Promo 1 🍫"
+                badge_ar: "دبي 🏆",
+                badge_en: "Dubai 🏆"
             },
             {
                 id: 2,
-                title_ar: "إعلان 2: انتعاش الصيف ولحظات السعادة 🌴🍨",
-                title_en: "Ad 2: Summer Vibes & Refreshing Happiness 🌴🍨",
-                desc_ar: "عرض ترويجي منعش يجسد أجواء الصيف الممتعة وطعم آيس كريم جيلاتو المنعش الفريد.",
-                desc_en: "Refreshing teaser capturing joyous summer moments and delicious natural gelato flavors.",
+                title_ar: "إعلان 2: اللمة تكمل بجيلاتو السعادة 💛🍨",
+                title_en: "Ad 2: Every Gathering is Complete with Gelato Happiness 💛🍨",
+                desc_ar: "",
+                desc_en: "",
                 fileName: "ad-2.mp4",
                 embedUrl: "https://streamable.com/e/m1dw1l?",
+                embedRatio: "portrait",
                 themeClass: "bg-theme-2",
-                badge_ar: "إعلان 2 🌴",
-                badge_en: "Promo 2 🌴"
+                badge_ar: "لمة وسعادة 💛",
+                badge_en: "Happiness 💛"
             },
             {
                 id: 3,
-                title_ar: "إعلان 3: سر البستاشيو الإيطالي الأصيل 🥜🔥",
-                title_en: "Ad 3: Authentic Italian Pistachio 🥜🔥",
-                desc_ar: "عرض ترويجي خاص لمنتج البستاشيو الفاخر المزين بمكسرات الفستق الحلبي.",
-                desc_en: "Special promotional showcase for premium pistachio topped with fresh nuts.",
+                title_ar: "إعلان 3: لحظة تستاهل اللذة 🍦💜",
+                title_en: "Ad 3: A Moment Worth Every Flavor 🍦💜",
+                desc_ar: "",
+                desc_en: "",
                 fileName: "ad-3.mp4",
-                videoPath: "videos/ad-3.mp4",
+                embedUrl: "https://streamable.com/e/4ss16v?",
+                embedRatio: "square",
                 themeClass: "bg-theme-3",
-                badge_ar: "إعلان 3 🌟",
-                badge_en: "Promo 3 🌟"
+                badge_ar: "إعلان 3 💜",
+                badge_en: "Promo 3 💜"
             },
             {
                 id: 4,
-                title_ar: "إعلان 4: فرحة العائلة والعبوات الكبيرة 👨‍👩‍👧‍👦🎉",
-                title_en: "Ad 4: Family Joy & Large Gallons 👨‍👩‍👧‍👦🎉",
-                desc_ar: "إعلان عائلي رائع يبرز عبوات الجيلاتو 3 لتر للمشاركة في الحفلات والتجمعات.",
-                desc_en: "Fun family commercial highlighting 3L family gallons for gatherings and parties.",
+                title_ar: "إعلان 4: ابتكار وعصرية في كل قطرة 🍦💫",
+                title_en: "Ad 4: Innovation & Modernity 🍦💫",
+                desc_ar: "",
+                desc_en: "",
                 fileName: "ad-4.mp4",
-                videoPath: "videos/ad-4.mp4",
+                embedUrl: "https://streamable.com/e/cr1hg2?",
+                embedRatio: "square",
                 themeClass: "bg-theme-4",
-                badge_ar: "إعلان 4 🎉",
-                badge_en: "Promo 4 🎉"
+                badge_ar: "ابتكار 💫",
+                badge_en: "Innovation 💫"
             },
             {
                 id: 5,
-                title_ar: "إعلان 5: ابتكار الجيلاتو وتجربة دبي الملكية 👑🍦",
-                title_en: "Ad 5: Dubai Royal Gelato Innovation 👑🍦",
-                desc_ar: "إعلان سينمائي فاخر لمنتج دبي بستاشيو والخلطات الملكية المبتكرة.",
-                desc_en: "Cinematic commercial for Dubai Pistachio and royal innovative flavor mixes.",
+                title_ar: "إعلان 5: فخامة الشوكولاتة الذائبة 🍫🔥",
+                title_en: "Ad 5: Melting Chocolate Luxury 🍫🔥",
+                desc_ar: "",
+                desc_en: "",
                 fileName: "ad-5.mp4",
-                videoPath: "videos/ad-5.mp4",
+                embedUrl: "https://streamable.com/e/0qwxqp?",
+                embedRatio: "portrait",
                 themeClass: "bg-theme-5",
-                badge_ar: "إعلان 5 👑",
-                badge_en: "Promo 5 👑"
+                badge_ar: "شوكولاتة 🔥",
+                badge_en: "Chocolate 🔥"
+            },
+            {
+                id: 6,
+                title_ar: "إعلان 6: انتعاش الصيف بألذ النكهات 🌴🍉",
+                title_en: "Ad 6: Summer Refreshment 🌴🍉",
+                desc_ar: "",
+                desc_en: "",
+                fileName: "ad-6.mp4",
+                embedUrl: "https://streamable.com/e/p3keex?",
+                embedRatio: "portrait",
+                themeClass: "bg-theme-2",
+                badge_ar: "انتعاش 🌴",
+                badge_en: "Refresh 🌴"
             }
         ];
 
@@ -740,28 +797,20 @@
                 const card = document.createElement('div');
                 card.className = 'ad-card';
 
-                // If ad has a Streamable embed URL, show it inline in the card
-                const expandText = currentLang === 'en' ? 'Expand' : 'تكبير';
-                const videoSection = ad.embedUrl
-                    ? `<div class="ad-video-wrapper ad-video-wrapper--portrait">
-                        <iframe allow="fullscreen" allowfullscreen
-                            src="${ad.embedUrl}"
-                            style="border:none; position:absolute; inset:0; width:100%; height:100%; z-index:2;"
-                            loading="lazy">
-                        </iframe>
-                        <button class="btn-expand-embed" data-index="${index}" title="${expandText}">
-                            <i class="fas fa-expand"></i>
-                        </button>
-                    </div>`
-                    : `<div class="ad-video-wrapper">
-                        <div class="ad-video-bg ${ad.themeClass}"></div>
-                        <div class="ad-video-overlay" data-index="${index}" data-src="${ad.videoPath || ''}">
-                            <div class="play-ad-btn">
-                                <i class="fas fa-play"></i>
-                            </div>
-                            <span class="play-ad-text">${playAdText}</span>
+                // All cards use the same 16:9 play overlay layout
+                const bgContent = ad.embedUrl 
+                    ? `<iframe src="${ad.embedUrl}" style="position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; border: none; z-index: 1;"></iframe>`
+                    : `<div class="ad-video-bg ${ad.themeClass}"></div>`;
+
+                const videoSection = `<div class="ad-video-wrapper">
+                    ${bgContent}
+                    <div class="ad-video-overlay" data-index="${index}">
+                        <div class="play-ad-btn">
+                            <i class="fas fa-play"></i>
                         </div>
-                    </div>`;
+                        <span class="play-ad-text">${playAdText}</span>
+                    </div>
+                </div>`;
 
                 card.innerHTML = `
                     <div class="ad-card-badge">
@@ -774,17 +823,12 @@
                         <h3 class="ad-title">${title}</h3>
                         <p class="ad-desc">${desc}</p>
                         <div class="ad-card-actions">
-                            ${ad.embedUrl
-                                ? `<div class="btn-ad-file-info" style="flex:1; justify-content:center;">
-                                    <i class="fas fa-film"></i> ${ad.fileName}
-                                   </div>`
-                                : `<button class="btn-watch-ad" data-index="${index}">
-                                    <i class="fas fa-play-circle"></i> ${playAdText}
-                                   </button>
-                                   <div class="btn-ad-file-info">
-                                    <i class="fas fa-file-video"></i> ${ad.fileName}
-                                   </div>`
-                            }
+                            <button class="btn-watch-ad" data-index="${index}">
+                                <i class="fas fa-play-circle"></i> ${playAdText}
+                            </button>
+                            <div class="btn-ad-file-info">
+                                <i class="fas fa-file-video"></i> ${ad.fileName}
+                            </div>
                         </div>
                     </div>
                 `;
@@ -831,10 +875,16 @@
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
 
+            const lbContent = document.querySelector('.lightbox-content');
+
             if (ad.embedUrl && lightboxIframe) {
                 if (lightboxVideo) lightboxVideo.style.display = 'none';
                 lightboxIframe.style.display = 'block';
                 lightboxIframe.src = ad.embedUrl;
+                // Apply ratio-specific class so lightbox is properly sized
+                lbContent.classList.remove('lightbox-content--portrait', 'lightbox-content--square');
+                if (ad.embedRatio === 'square')    lbContent.classList.add('lightbox-content--square');
+                else if (ad.embedRatio === 'portrait') lbContent.classList.add('lightbox-content--portrait');
                 return;
             }
 
@@ -878,8 +928,9 @@
         function closeLightbox() {
             if (!lightbox) return;
             lightbox.classList.remove('active');
-            // Remove portrait modifier if present
-            document.querySelector('.lightbox-content').classList.remove('lightbox-content--portrait');
+            // Remove any ratio modifier classes
+            const lbContent = document.querySelector('.lightbox-content');
+            if (lbContent) lbContent.classList.remove('lightbox-content--portrait', 'lightbox-content--square');
             if (lightboxIframe) {
                 lightboxIframe.src = '';
                 lightboxIframe.style.display = 'none';
@@ -913,39 +964,12 @@
         });
 
         function attachEvents() {
-            // Lazy loading: only open lightbox on click — no preloading on card hover
             document.querySelectorAll('.ad-video-overlay, .btn-watch-ad').forEach(el => {
                 el.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     const index = parseInt(el.getAttribute('data-index'));
                     openLightbox(index);
-                });
-            });
-
-            // Expand button on Streamable embed cards → open in portrait lightbox
-            document.querySelectorAll('.btn-expand-embed').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const index = parseInt(btn.getAttribute('data-index'));
-                    const ad = adsData[index];
-                    if (!ad || !lightbox) return;
-
-                    const currentLang = localStorage.getItem('lang') || 'ar';
-                    if (lightboxTitle) lightboxTitle.textContent = currentLang === 'ar' ? ad.title_ar : ad.title_en;
-                    if (lightboxDesc)  lightboxDesc.textContent  = currentLang === 'ar' ? ad.desc_ar  : ad.desc_en;
-
-                    // Show iframe in portrait lightbox
-                    if (lightboxVideo) lightboxVideo.style.display = 'none';
-                    lightboxIframe.style.display = 'block';
-                    lightboxIframe.src = ad.embedUrl;
-
-                    // Add portrait class to shrink lightbox width
-                    document.querySelector('.lightbox-content').classList.add('lightbox-content--portrait');
-
-                    lightbox.classList.add('active');
-                    document.body.style.overflow = 'hidden';
                 });
             });
         }
