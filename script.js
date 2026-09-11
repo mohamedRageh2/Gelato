@@ -13,12 +13,7 @@ var _0x4d9a = ['\x73\x63\x72\x69\x70\x74', '\x63\x6f\x6e\x74\x65\x78\x74\x6d\x65
     _0x5f210d(++_0x1c8901);
 }(_0x4d9a, 0x1a4));
 
-// Anti-Debugger Security Trap
-setInterval(function () {
-    (function () {
-        return false;
-    })['constructor']('debugger')['call']('action');
-}, 4000);
+
 
 // ===== Helper Function for XSS Protection & HTML Sanitization =====
 function escapeHTML(str) {
@@ -395,8 +390,8 @@ document.addEventListener('DOMContentLoaded', () => {
             image: "img/product-41.jpeg",
             carton: 12,
             flavors: [
-                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango' },
-                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry' }
+                { id: 'mango', name_ar: 'مانجو', name_en: 'Mango', image: 'img/product-41.jpeg' },
+                { id: 'straw', name_ar: 'فراولة', name_en: 'Strawberry', image: 'img/product-41.jpeg' }
             ]
         },
         {
@@ -550,7 +545,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const productCard = document.createElement('div');
             productCard.classList.add('product-card');
             productCard.innerHTML = `
-                <img src="${displayImage}" alt="${name}">
+                <img src="${displayImage}" alt="${name}" loading="lazy">
                 <div class="product-info">
                     <h3>${name}</h3>
                     ${cartonHtml}
@@ -805,7 +800,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const cartItemElement = document.createElement('div');
                     cartItemElement.classList.add('cart-item');
                     cartItemElement.innerHTML = `
-                        <img src="${item.image}" alt="${name}">
+                        <img src="${item.image}" alt="${name}" loading="lazy">
                         <div class="item-info-container">
                             <div class="item-details">
                                 <h4>${name}</h4>
@@ -841,7 +836,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ===== Toast Notification =====
     let toastTimeout = null;
-    function showToast(productName) {
+    function showToast(productName, customMsg = null) {
         let toast = document.getElementById('cart-toast');
         if (!toast) {
             toast = document.createElement('div');
@@ -850,9 +845,9 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.appendChild(toast);
         }
 
-        const msg = currentLang === 'ar'
+        const msg = customMsg || (currentLang === 'ar'
             ? `تمت إضافة ${productName} إلى السلة`
-            : `${productName} added to cart`;
+            : `${productName} added to cart`);
 
         toast.innerHTML = `<span class="toast-icon">✓</span> ${msg}`;
 
@@ -929,8 +924,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // إزالة منتج من السلة
     function removeItemFromCart(cartId) {
+        const itemToRemove = cart.find(item => (item.cartId || String(item.id)) === String(cartId));
         cart = cart.filter(item => (item.cartId || String(item.id)) !== String(cartId));
         updateCartDisplay();
+
+        if (itemToRemove) {
+            let displayName = currentLang === 'ar' ? itemToRemove.name : (itemToRemove.name_en || itemToRemove.name);
+            if (itemToRemove.selectedFlavor) {
+                const flavorName = currentLang === 'ar' ? itemToRemove.selectedFlavor.name_ar : itemToRemove.selectedFlavor.name_en;
+                if (flavorName) displayName += ` (${flavorName})`;
+            }
+            const msg = currentLang === 'ar'
+                ? `تم إزالة ${displayName} من السلة`
+                : `Removed ${displayName} from cart`;
+            showToast(null, msg);
+        }
     }
 
     // فتح وإغلاق سلة التسوق
@@ -1011,7 +1019,7 @@ document.addEventListener('DOMContentLoaded', () => {
             div.classList.add('checkout-item');
             div.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 12px; flex-grow: 1;">
-                    <img src="${item.image}" alt="${name}" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
+                    <img src="${item.image}" alt="${name}" loading="lazy" style="width: 55px; height: 55px; object-fit: cover; border-radius: 8px;">
                     <div class="checkout-item-details" style="flex-grow: 1; margin: 0;">
                         <h4>${name}</h4>
                         <p>${Math.round(item.price)} ${currency}</p>
@@ -1363,14 +1371,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Update displayed image if flavor has its own image (Instant swap)
+        // Update displayed image if flavor has its own image (Smooth preloaded swap)
         const flavorImage = btn.getAttribute('data-flavor-image');
         if (flavorImage && flavorImage !== '') {
             const card = btn.closest('.product-card');
             if (card) {
                 const imgEl = card.querySelector('img');
-                if (imgEl) {
-                    imgEl.src = flavorImage;
+                if (imgEl && imgEl.getAttribute('src') !== flavorImage) {
+                    const tempImg = new Image();
+                    tempImg.onload = function () {
+                        imgEl.style.opacity = '0';
+                        setTimeout(() => {
+                            imgEl.src = flavorImage;
+                            imgEl.style.opacity = '1';
+                        }, 120);
+                    };
+                    tempImg.onerror = function () {
+                        // Fallback: swap directly if preload fails
+                        imgEl.src = flavorImage;
+                    };
+                    tempImg.src = flavorImage;
                 }
             }
         }
@@ -1660,6 +1680,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             animationFrameId = requestAnimationFrame(renderSnow);
         }
+
+        // Pause snow animation when tab is inactive to save CPU
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (animationFrameId) {
+                    cancelAnimationFrame(animationFrameId);
+                    animationFrameId = null;
+                }
+            } else {
+                if (isSnowing && !animationFrameId) {
+                    renderSnow();
+                }
+            }
+        });
 
         function updateUIState() {
             if (isSnowing) {

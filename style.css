@@ -152,7 +152,7 @@ header nav ul {
     flex-direction: row-reverse;
     flex-wrap: wrap;
     gap: 22px;
-    justify-content: flex-start;
+    justify-content: flex-end;
 }
 
 .header-actions {
@@ -161,12 +161,57 @@ header nav ul {
     gap: 25px;
 }
 
+.dark-mode-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    font-size: 1.25rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.dark-mode-toggle:hover {
+    background-color: rgba(91, 192, 222, 0.15);
+    transform: scale(1.1);
+}
+
+.dark-mode-toggle::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.85);
+    background: rgba(15, 23, 42, 0.9);
+    color: #ffffff;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    font-family: inherit;
+    border-radius: 6px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.dark-mode-toggle:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
 .header-bottom {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 15px;
-    justify-content: space-between !important;
+    justify-content: flex-end !important;
     padding-top: 15px;
     margin-top: 10px;
     border-top: 1px solid rgba(224, 224, 224, 0.5);
@@ -358,6 +403,7 @@ header nav ul li a:hover {
     object-fit: cover;
     background-color: #ffffff;
     border-bottom: 1px solid var(--border-color);
+    transition: opacity 0.25s ease;
 }
 
 .product-info {
@@ -924,7 +970,7 @@ button.snow-social-btn.disabled {
     }
 
     .header-logo {
-        order: 1; /* Logo on the right */
+        order: 2; /* Logo on the left */
         margin: 0;
     }
 
@@ -933,9 +979,9 @@ button.snow-social-btn.disabled {
     }
     
     .header-actions {
-        order: 2; /* Actions on the left */
+        order: 1; /* Actions on the right */
         width: auto;
-        justify-content: flex-end;
+        justify-content: flex-start;
     }
 
     .header-search {
