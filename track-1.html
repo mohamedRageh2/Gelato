@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>تتبع طلباتك - المدينة المنورة</title>
+<style>
+:root{--bg:#f4f7f6;--card:#fff;--tx:#1d2330;--mut:#6b7385;--pr:#1ba97f;--bd:#e2e5ea;--red:#d64545;--warn:#e69b16}
+@media(prefers-color-scheme:dark){:root{--bg:#12151b;--card:#1b2029;--tx:#e8ebf0;--mut:#98a1b3;--bd:#2b3240}}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;background:var(--bg);color:var(--tx)}
+.wrap{max-width:480px;margin:0 auto;padding:16px}.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:14px;margin-bottom:12px}
+h1{font-size:20px;margin:6px 0 2px}h2{font-size:15px;margin:16px 2px 8px;color:var(--mut)}.mut{color:var(--mut);font-size:14px}label{display:block;font-size:13px;color:var(--mut);margin:0 0 4px}
+input{width:100%;padding:11px;border:1px solid var(--bd);border-radius:10px;font:inherit;background:var(--card);color:var(--tx)}
+button{width:100%;margin-top:12px;padding:12px;border:0;border-radius:10px;background:var(--pr);color:#fff;font:inherit;font-weight:700;cursor:pointer}button:disabled{opacity:.6}
+.err{color:var(--red);margin-top:10px;font-size:14px}.hide{display:none}
+.steps{display:flex;justify-content:space-between;margin:14px 0 6px}
+.step{flex:1;text-align:center;font-size:12px;color:var(--mut)}.dot{width:26px;height:26px;border-radius:50%;background:var(--bd);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
+.step.on .dot{background:var(--pr)}.step.on{color:var(--tx);font-weight:700}
+.cancel{background:#fde8e8;color:var(--red);padding:8px;border-radius:10px;text-align:center;font-weight:700;margin:8px 0}
+.hl{border:2px solid var(--pr)}ul{margin:8px 0;padding-inline-start:18px}.tot{font-size:17px;font-weight:700}.row{display:flex;justify-content:space-between;gap:8px;align-items:center}
+.tag{font-size:12px;padding:2px 8px;border-radius:10px;background:var(--bd)}.tag.paid{background:#d6f3e8;color:#0d6b4d}.tag.unpaid{background:#fdecc8;color:#8a5a00}
+details.card summary{cursor:pointer;list-style:none}details.card summary::-webkit-details-marker{display:none}
+a.back{display:block;text-align:center;color:var(--pr);margin-top:8px;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="text-align:center;padding:8px 0"><h1>المدينة المنورة</h1><div class="mut">تتبع طلباتك</div></div>
+  <div class="card" id="form">
+    <label for="ph">اكتب رقم التليفون اللي طلبت به</label>
+    <input id="ph" type="tel" inputmode="tel" autocomplete="tel" placeholder="01xxxxxxxxx" dir="ltr" style="text-align:right">
+    <button id="go">عرض طلباتي</button>
+    <div class="err" id="err"></div>
+  </div>
+  <div id="res"></div>
+  <a class="back" href="index.html">الرجوع للمتجر</a>
+</div>
+<script>
+const SB_URL='https://gcfktmafehawspotidux.supabase.co', SB_KEY='sb_publishable_r_q-tcrfgEOQLEi0Kqc17g_rl1LyJPi';
+const $=id=>document.getElementById(id);
+const ST={new:'تم استلام الطلب',preparing:'قيد التجهيز',out_for_delivery:'خرج للتوصيل',delivered:'تم التسليم'};
+const STEPS=['new','preparing','out_for_delivery','delivered'];
+const params=new URLSearchParams(location.search), focusOrder=(params.get('o')||'').toUpperCase();
+const el=(t,txt,cls)=>{const e=document.createElement(t);if(txt!=null)e.textContent=txt;if(cls)e.className=cls;return e};
+const fdate=d=>new Date(d).toLocaleString('ar-EG',{timeZone:'Africa/Cairo',dateStyle:'medium',timeStyle:'short'});
+
+$('go').onclick=async()=>{
+  $('err').textContent='';$('res').replaceChildren();
+  const ph=$('ph').value.trim();
+  if(ph.replace(/\D/g,'').length<8){$('err').textContent='اكتب رقم التليفون صحيح.';return}
+  $('go').disabled=true;
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/rpc/track_orders_by_phone',{method:'POST',headers:{apikey:SB_KEY,'Content-Type':'application/json'},body:JSON.stringify({p_phone:ph})});
+    let d=null;try{d=await r.json()}catch(e){}
+    if(!r.ok){$('err').textContent=(d&&d.message==='too_many_requests')?'محاولات كتير، جرّب بعد شوية.':'حصلت مشكلة في الاتصال، جرّب تاني.';return}
+    draw(Array.isArray(d)?d:[]);
+  }catch(e){$('err').textContent='حصلت مشكلة في الاتصال، جرّب تاني بعد شوية.'}
+  finally{$('go').disabled=false}
+};
+
+function orderCard(o,big){
+  const box=el('div',null,'card'+(o.order_number===focusOrder?' hl':''));
+  const head=el('div',null,'row');head.append(el('b',o.order_number,'tot'),el('span',o.payment_status==='paid'?'مدفوع':'لم يُدفع بعد','tag '+(o.payment_status==='paid'?'paid':'unpaid')));
+  box.append(head,el('div',fdate(o.created_at)+' · '+(o.governorate||''),'mut'));
+  if(o.status==='cancelled')box.append(el('div','تم إلغاء هذا الطلب','cancel'));
+  else if(big){
+    const idx=STEPS.indexOf(o.status),steps=el('div',null,'steps');
+    STEPS.forEach((k,i)=>{const s=el('div',null,'step'+(i<=idx?' on':''));s.append(el('div',i<=idx?'✓':String(i+1),'dot'),el('div',ST[k]));steps.append(s)});
+    box.append(steps);
+  }else box.append(el('div',ST[o.status]||'','mut'));
+  const ul=el('ul');(o.items||[]).forEach(i=>ul.append(el('li',i.name+(i.flavor?' - '+i.flavor:'')+' × '+i.qty+' كرتونة')));
+  box.append(ul,el('div','الإجمالي: '+Math.round(o.total).toLocaleString('ar-EG')+' جنيه','tot'));
+  return box;
+}
+function draw(list){
+  const box=$('res');box.replaceChildren();
+  if(!list.length){box.append(el('div','مفيش طلبات على الرقم ده. اتأكد من الرقم.','card mut'));return}
+  const active=list.filter(o=>!['delivered','cancelled'].includes(o.status)),past=list.filter(o=>['delivered','cancelled'].includes(o.status));
+  if(focusOrder){active.sort((a,b)=>(b.order_number===focusOrder)-(a.order_number===focusOrder))}
+  if(active.length){box.append(el('h2','طلباتك الجارية'));active.forEach(o=>box.append(orderCard(o,true)))}
+  else box.append(el('div','مفيش طلبات جارية دلوقتي.','card mut'));
+  if(past.length){box.append(el('h2','طلباتك السابقة'));past.forEach(o=>{
+    const d=el('details',null,'card'),s=el('summary');const row=el('div',null,'row');row.append(el('b',o.order_number),el('span',(ST[o.status]||'تم الإلغاء')+' · '+Math.round(o.total).toLocaleString('ar-EG')+' جنيه','mut'));s.append(row);
+    d.append(s);const inner=orderCard(o,false);inner.style.cssText='border:0;padding:8px 0 0;margin:0';d.append(inner);box.append(d)})}
+}
+</script>
+</body>
+</html>
